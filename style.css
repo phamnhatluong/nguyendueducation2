@@ -1,17 +1,27 @@
 * {
   transition: all 0.5s;
+  box-sizing: border-box;
 }
+
 html,
 body {
   overflow-x: hidden;
+  scroll-behavior: smooth;
 }
+
 button {
   cursor: pointer;
 }
+
+/* Enhanced underline animation */
 a.underline-animate {
   position: relative;
   color: #000;
   text-decoration: none;
+  font-weight: 500;
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: all 0.3s ease;
 }
 
 a.underline-animate::after {
@@ -20,34 +30,275 @@ a.underline-animate::after {
   left: 0;
   bottom: 0;
   width: 0%;
-  height: 2px;
-  background-color: #000;
+  height: 3px;
+  background: linear-gradient(90deg, #ff9f00, #ff6b35);
   transition: width 0.3s ease;
+  border-radius: 2px;
+}
+
+a.underline-animate:hover {
+  background-color: rgba(255, 159, 0, 0.1);
+  transform: translateY(-2px);
 }
 
 a.underline-animate:hover::after {
   width: 100%;
 }
+
+/* Enhanced navbar */
 .bg-body-tertiary {
   --bs-bg-opacity: 1;
-  background-color: rgb(255, 208, 0) !important;
+  background: linear-gradient(135deg, #ff9f00, #ffc107) !important;
+  box-shadow: 0 4px 15px rgba(255, 159, 0, 0.3);
 }
+
 body {
-  background-color: #ffe882;
-  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #ffe882, #ffeb3b);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
 }
+
 .navbar {
   display: flex;
   justify-content: space-around;
   padding: 16px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
 }
+
 .navbar button {
-  background-color: #fffe00;
+  background: linear-gradient(135deg, #fffe00, #ffeb3b);
   color: #000000;
-  padding: 8px 16px;
+  padding: 10px 20px;
   border: none;
-  border-radius: 8px;
+  border-radius: 25px;
   cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 254, 0, 0.3);
+}
+
+.navbar button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(255, 254, 0, 0.4);
+}
+
+/* Enhanced avatar */
+.avt {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #fff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.avt:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Enhanced content styling */
+.content {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.text-container {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 30px;
+  margin: 20px 0;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.text-container p {
+  line-height: 1.8;
+  font-size: 1.1rem;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: justify;
+}
+
+.text-container h2 {
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2.5rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Enhanced button styling */
+.logout-btn {
+  background: linear-gradient(135deg, #ff6b35, #ff9f00);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+}
+
+.logout-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
+}
+
+/* Enhanced drum container */
+.drum-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.image-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Add some animations to rotating elements */
+.rotate-cw {
+  animation: rotateCW 20s linear infinite;
+}
+
+.rotate-ccw {
+  animation: rotateCCW 15s linear infinite;
+}
+
+@keyframes rotateCW {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rotateCCW {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+/* Enhanced forum button */
+.forum-button {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #ff9f00, #ff6b35);
+  color: white;
+  border-radius: 50%;
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  box-shadow: 0 4px 15px rgba(255, 159, 0, 0.4);
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.forum-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 25px rgba(255, 159, 0, 0.6);
+}
+
+/* Responsive design improvements */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .content {
+    padding: 10px;
+  }
+
+  .text-container {
+    padding: 20px;
+    margin: 10px 0;
+  }
+
+  .text-container h2 {
+    font-size: 2rem;
+  }
+
+  .drum-container {
+    height: 400px;
+  }
+
+  .nguyendu {
+    height: 60% !important;
+  }
+}
+
+/* Scroll to top button */
+.scroll-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #ff9f00, #ff6b35);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.scroll-to-top.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.scroll-to-top:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 25px rgba(255, 159, 0, 0.4);
+}
+
+/* Loading animation */
+.loading {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255, 159, 0, 0.3);
+  border-radius: 50%;
+  border-top-color: #ff9f00;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.avt {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 2px solid white;
+  object-fit: cover;
   margin-left: 10px;
 }
 .content {
