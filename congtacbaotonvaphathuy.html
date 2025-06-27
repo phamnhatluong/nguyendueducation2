@@ -1,0 +1,367 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nguyễn Du</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://getbootstrap.com/docs/5.3/assets/css/docs.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+    ></script>
+    <style>
+      .w-100 {
+        height: 500px;
+      }
+      .forum-button {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        width: 60px;
+        height: 60px;
+        background-color: #ff9f00;
+        color: white;
+        border-radius: 50%;
+        font-size: 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        z-index: 1000;
+        transition: transform 0.2s ease;
+      }
+      .forum-button:hover {
+        transform: scale(1.1);
+      }
+    </style>
+  </head>
+  <body>
+    <a href="forum.html" class="forum-button"> 💬 </a>
+
+    <nav
+      class="navbar navbar-expand-lg bg-body-tertiary"
+      class="navbar"
+      style="background-color: #ff9f00"
+    >
+      <div class="container-fluid">
+        <a class="navbar-brand" href="index.html"
+          ><img src="img/snapedit_1745406959124.jpeg" class="avt" alt=""
+        /></a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a
+                class="nav-link active underline-animate"
+                aria-current="page"
+                href="index.html"
+                >🕑Tiểu sử</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link underline-animate"
+                href="vinhdanhvacongnhan.html"
+                >🏛️ Vinh danh và công nhận</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link underline-animate"
+                href="giatridisanvavanhoa.html"
+                >🏺 Giá trị di sản và văn hóa</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link underline-animate"
+                href="congtacbaotonvaphathuy.html"
+                >🎬 Công tác bảo tồn và phát huy</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link underline-animate" href="TruyenKieu.html"
+                >💭Truyện Kiều</a
+              >
+            </li>
+            <li class="nav-item">
+              <a href="2005VDLA038 .pdf" download>
+                <button class="logout-btn">
+                  Tải thông tin chi tiết tại đây
+                </button>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div
+        style="
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 16px;
+        "
+      >
+        <div style="display: flex; align-items: center">
+          <img
+            src="https://i.pravatar.cc/100"
+            userAvatar
+            class="avt"
+            id="userAvatar"
+            alt="avatar"
+          />
+          <input
+            type="file"
+            id="avatarInput"
+            accept="image/*"
+            style="display: none"
+          />
+
+          <h4 id="welcomeText" style="margin: 0"></h4>
+        </div>
+        <button class="logout-btn" onclick="logout()">Đăng xuất</button>
+      </div>
+    </nav>
+    <div class="content">
+      <div
+        class="text-container"
+        style="font-family: 'Lora', 'Times New Roman', serif"
+      >
+        <p>
+          <strong>1. Công tác tu bổ và tôn tạo di tích:</strong> Khu lưu niệm
+          Đại thi hào Nguyễn Du là một di tích quốc gia đặc biệt đã được Chính
+          phủ đầu tư tu bổ trong giai đoạn 2017–2020 theo Quyết định 376/QĐ-TTg.
+          Tổng ngân sách thực hiện lên đến 45,6 tỷ đồng. Các hạng mục như bảo
+          tàng Nguyễn Du, nhà thờ Nguyễn Du, tượng đài Nguyễn Du và khu mộ của
+          ông đã được tu sửa, nâng cấp để đảm bảo tính bền vững và đáp ứng yêu
+          cầu tham quan – nghiên cứu. Tuy nhiên, vẫn còn một số công trình như
+          nhà bình văn và đình Chợ Trổ sau khi phục dựng chưa được khai thác
+          hiệu quả do chưa xác định rõ mục đích sử dụng (ví dụ như chưa rõ thờ
+          ai), dẫn đến việc để trống và khóa cửa bảo quản.
+        </p>
+
+        <p>
+          <strong>2. Sưu tầm và trưng bày hiện vật:</strong> Một trong những
+          hoạt động nổi bật của Ban Quản lý Khu lưu niệm là công tác sưu tầm
+          hiện vật. Tính đến năm 2020, khu lưu niệm đã bổ sung thêm 27 hiện vật
+          quý hiếm, trong đó có 3 bộ tranh sơn mài khảm trai minh họa Truyện
+          Kiều, 20 hiện vật gốm sứ liên quan đến tích Kiều và 4 bản Hán Nôm viết
+          về dòng họ Nguyễn Tiên Điền. Hiện nay, bảo tàng Nguyễn Du trưng bày
+          hơn 1.000 hiện vật và 47 bản Truyện Kiều khác nhau, tiêu biểu có cuốn
+          Truyện Kiều nặng nhất Việt Nam (75kg), các bản khắc gỗ cổ và các vật
+          dụng gắn liền với Nguyễn Du.
+        </p>
+
+        <p>
+          <strong
+            >3. Hoạt động đón tiếp khách du lịch và quảng bá hình ảnh:</strong
+          >
+          Mỗi năm, Khu lưu niệm đón tiếp từ 20.000 đến 30.000 lượt khách tham
+          quan. Đặc biệt, trong năm 2022, toàn huyện Nghi Xuân đã có gần 290.000
+          lượt khách du lịch, trong đó Khu lưu niệm là một điểm đến tiêu biểu.
+          Tuy nhiên, hình thức tham quan của khách còn đơn giản, chưa tạo được
+          chiều sâu trải nghiệm. Cần phát triển thêm các hoạt động tương tác như
+          biểu diễn trò Kiều, lẩy Kiều, hướng dẫn trải nghiệm các giá trị văn
+          hóa dân gian để níu chân du khách.
+        </p>
+
+        <p>
+          <strong
+            >4. Tổ chức các hoạt động văn hóa, nghệ thuật và lễ hội:</strong
+          >
+          Trong dịp kỷ niệm 255 năm ngày sinh và 200 năm ngày mất của Nguyễn Du
+          (2020), hàng loạt sự kiện đặc sắc đã được tổ chức như: công diễn kịch
+          thơ “Hoạn Thư ghen”, triển lãm tranh minh họa Truyện Kiều, hội thảo
+          “Tiếng Việt trong Truyện Kiều”, lễ trao giải thưởng Văn học - Nghệ
+          thuật Nguyễn Du. Ngoài ra, còn có chương trình “Thơ Kiều qua làn điệu
+          dân ca Nghệ Tĩnh” cùng nhiều hoạt động biểu diễn văn hóa truyền thống.
+        </p>
+
+        <p>
+          <strong>5. Sản xuất các sản phẩm nghệ thuật phục vụ bảo tồn:</strong>
+          Năm 2021, bộ phim tài liệu – nghệ thuật “Đại thi hào Nguyễn Du” được
+          hoàn thành và phát hành. Đây là phim tài liệu đầu tiên thể hiện đầy đủ
+          cuộc đời, sự nghiệp và giá trị tư tưởng của Nguyễn Du. Phim đã tham
+          gia Liên hoan phim Việt Nam và góp phần lan tỏa hình ảnh Nguyễn Du ra
+          công chúng rộng rãi.
+        </p>
+
+        <p>
+          <strong>6. Gắn bảo tồn với giáo dục di sản trong trường học:</strong>
+          Công tác giáo dục gắn với bảo tồn di tích cũng được chú trọng. Trong
+          năm 2020, cuộc thi “Tìm hiểu Nguyễn Du và Truyện Kiều” do Sở GD&ĐT Hà
+          Tĩnh phát động đã thu hút hơn 130.000 bài dự thi từ học sinh, giáo
+          viên toàn tỉnh. Ngoài ra, các hoạt động sinh hoạt văn hóa học đường
+          như ngâm thơ, lẩy Kiều, trò chơi dân gian từ Truyện Kiều được tổ chức
+          định kỳ để đưa di sản vào giáo dục một cách sinh động.
+        </p>
+
+        <p>
+          <strong>7. Chính sách hỗ trợ từ địa phương và trung ương:</strong> Sở
+          Văn hóa, Thể thao và Du lịch Hà Tĩnh đã tích cực triển khai chương
+          trình số hóa di sản 2021–2030. Đồng thời, tỉnh cũng thành lập Quỹ bảo
+          tồn giá trị di sản Nguyễn Du và Truyện Kiều nhằm huy động xã hội hóa
+          nguồn lực. Về phía Chính phủ, nhiều chính sách lớn đã được ban hành
+          như Quyết định 1230/QĐ-TTg (2021) về chương trình bảo tồn di sản văn
+          hóa và Quyết định 1522/QĐ-TTg thành lập Hội đồng Di sản văn hóa quốc
+          gia.
+        </p>
+
+        <p>
+          <strong>Tổng kết:</strong> Công tác bảo tồn và phát huy giá trị văn
+          hóa tại Khu lưu niệm Nguyễn Du đã đạt được nhiều kết quả tích cực. Tuy
+          nhiên, vẫn còn tồn tại một số điểm hạn chế như thiếu tính trải nghiệm
+          sâu sắc, hoạt động quảng bá chưa mạnh, nguồn nhân lực chưa được chuyên
+          môn hóa cao. Để di sản này tiếp tục lan tỏa, cần đầu tư nhiều hơn vào
+          chiều sâu nội dung, cải thiện dịch vụ và kết nối chặt chẽ với du lịch
+          – giáo dục.
+        </p>
+      </div>
+      <div class="image-container">
+        <div class="drum-container">
+          <img
+            class="chin rotate-cw"
+            src="img/Vong 09.svg"
+            alt="Vòng ngoài cùng"
+          />
+          <img class="tam rotate-ccw" src="img/Vong 08.svg" alt="Vòng giữa" />
+          <img
+            class="bay rotate-cw"
+            src="img/Vong 07.svg"
+            alt="Vòng trong cùng"
+          />
+          <img
+            class="sau rotate-ccw"
+            src="img/Vong 06.svg"
+            alt="Vòng trong nhất"
+          />
+          <img
+            class="nam rotate-cw"
+            src="img/Vong 05.svg"
+            alt="Vòng trong nhì"
+          />
+          <img
+            class="tu rotate-ccw"
+            src="img/Vong 04.svg"
+            alt="Vòng trong tam"
+          />
+          <img class="ba rotate-cw" src="img/Vong 03.svg" alt="Vòng trong tứ" />
+          <img
+            class="hai rotate-ccw"
+            src="img/Vong 02.svg"
+            alt="Vòng trong ngũ"
+          />
+          <img
+            class="mot rotate-cw"
+            src="img/Vong 01.svg"
+            alt="Vòng trong lục"
+          />
+          <img class="nguyendu" src="img/anhnguyendu.png" alt="ảnh Nguyễn Du" />
+        </div>
+        <div class="anhtruyenkieu">
+          <div id="carouselExampleIndicators" class="carousel slide">
+            <div class="carousel-indicators">
+              <button
+                type="button"
+                data-bs-target="#carouselExampleIndicators"
+                data-bs-slide-to="0"
+                class="active"
+                aria-current="true"
+                aria-label="Slide 1"
+              ></button>
+              <button
+                type="button"
+                data-bs-target="#carouselExampleIndicators"
+                data-bs-slide-to="1"
+                aria-label="Slide 2"
+              ></button>
+              <button
+                type="button"
+                data-bs-target="#carouselExampleIndicators"
+                data-bs-slide-to="2"
+                aria-label="Slide 3"
+              ></button>
+              <button
+                type="button"
+                data-bs-target="#carouselExampleIndicators"
+                data-bs-slide-to="3"
+                aria-label="Slide 3"
+              ></button>
+              <button
+                type="button"
+                data-bs-target="#carouselExampleIndicators"
+                data-bs-slide-to="4"
+                aria-label="Slide 3"
+              ></button>
+            </div>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="img/main.png" class="d-block w-100" alt="..." />
+              </div>
+              <div class="carousel-item">
+                <img src="img/11.png" class="d-block w-100" alt="..." />
+              </div>
+              <div class="carousel-item">
+                <img src="img/22.png" class="d-block w-100" alt="..." />
+              </div>
+              <div class="carousel-item">
+                <img src="img/33.png" class="d-block w-100" alt="..." />
+              </div>
+              <div class="carousel-item">
+                <img src="img/44.png" class="d-block w-100" alt="..." />
+              </div>
+            </div>
+            <button
+              class="carousel-control-prev"
+              type="button"
+              data-bs-target="#carouselExampleIndicators"
+              data-bs-slide="prev"
+            >
+              <span
+                class="carousel-control-prev-icon"
+                aria-hidden="true"
+              ></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button
+              class="carousel-control-next"
+              type="button"
+              data-bs-target="#carouselExampleIndicators"
+              data-bs-slide="next"
+            >
+              <span
+                class="carousel-control-next-icon"
+                aria-hidden="true"
+              ></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+            <p style="text-align: center">
+              Một số hình ảnh về khu lưu niệm Đại thi hào Nguyễn Du <br />
+              [Nguồn: Phạm Thị Vân Nam ]
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="all.js"></script>
+  </body>
+</html>

@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login / Register</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        font-family: sans-serif;
+        background: #1b1b1b;
+      }
+
+      .hero {
+        min-height: 100vh;
+        width: 100%;
+        position: absolute;
+      }
+
+      .main-box {
+        width: 320px;
+        height: 480px;
+        margin: 6% auto;
+        background: #1b1b1b;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+      }
+
+      .form-box {
+        width: 316px;
+        height: 476px;
+        position: relative;
+        background: #252525;
+        padding: 5px;
+        overflow: hidden;
+        z-index: 5;
+      }
+
+      #after {
+        width: 50%;
+        height: 100%;
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 50%;
+        background: #2d2e30;
+        z-index: -1;
+        transition: 0.5s;
+      }
+
+      .button-box {
+        width: 220px;
+        margin: 35px auto 30px auto;
+        position: relative;
+        border-radius: 30px;
+        display: flex;
+        justify-content: space-around;
+      }
+
+      .toggle-btn {
+        padding: 10px 30px;
+        cursor: pointer;
+        background: transparent;
+        border: 0;
+        font-size: 14px;
+        font-weight: bold;
+        color: rgb(234, 234, 235);
+        outline: none;
+        position: relative;
+      }
+
+      #btn {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 110px;
+        height: 100%;
+        background: linear-gradient(to left, #57aab4, #57aab4);
+        border-radius: 30px;
+        transition: 0.5s;
+      }
+
+      .input-group {
+        width: 320px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        position: absolute;
+        top: 180px;
+        padding: 0 30px;
+        transition: 0.5s;
+        box-sizing: border-box;
+      }
+
+      .input-field {
+        width: 100%;
+        padding: 10px 5px;
+        margin: 10px 0;
+        border-left: 2px solid #57aab4;
+        border-bottom: 2px solid #57aab4;
+        background: transparent;
+        color: rgb(234, 234, 235);
+        font-size: 15px;
+      }
+
+      .submit-btn {
+        width: 85%;
+        padding: 10px 30px;
+        margin: 30px auto 0;
+        background: linear-gradient(to right, #03a9f4, #57aab4, #03a9f4);
+        border: 0;
+        border-radius: 30px;
+        color: #fff;
+        font-weight: bold;
+        font-size: 15px;
+        cursor: pointer;
+      }
+
+      #login {
+        left: 0px;
+      }
+
+      #register {
+        left: 500px;
+      }
+
+      .google-btn {
+        background: #db4437;
+        color: white;
+        width: 85%;
+        margin: 10px auto;
+        display: block;
+        padding: 10px 30px;
+        border-radius: 30px;
+        border: none;
+        cursor: pointer;
+      }
+      .social-icons {
+        margin: 0 auto;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+      }
+      .icon-link {
+        display: flex;
+        background: transparent;
+        width: 50px;
+        height: 50px;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        border-radius: 50%;
+        margin: 0px 10px;
+        box-shadow: 6px 6px 10px -1px rgba(234, 234, 235, 0.1),
+          -6px -6px 10px -1px rgba(37, 37, 37, 0.7);
+        border: 1px solid rgba(234, 234, 235, 0.09);
+        transition: transform 0.5s;
+      }
+      .cont-icon {
+        color: #57aab4;
+        font-size: 28px;
+        transition: transform 0.5s;
+      }
+      .icon-link:hover {
+        box-shadow: inset 4px 4px 6px -1px rgba(234, 234, 235, 0.2),
+          inset 4px 4px 6px -1px rgba(37, 37, 37, 0.7), 0 0 5px #57aab4,
+          0 0 25px #57aab4, 0 0 50px #57aab4, 0 0 100px #03e9f4;
+        transform: translateY(2px);
+      }
+      .icon-link:hover .cont-icon {
+        transform: scale(0.95);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hero">
+      <div class="main-box">
+        <div class="form-box">
+          <div id="after"></div>
+          <div class="button-box">
+            <div id="btn"></div>
+            <button type="button" class="toggle-btn" onclick="showLogin()">
+              Log in
+            </button>
+            <button type="button" class="toggle-btn" onclick="showRegister()">
+              Register
+            </button>
+          </div>
+          <div class="social-icons">
+            <a
+              class="icon-link"
+              id="google-login-btn"
+              href="javascript:void(0)"
+            >
+              <i class="fab fa-google cont-icon"></i>
+            </a>
+          </div>
+          <form id="login" class="input-group">
+            <input
+              type="email"
+              id="login-email"
+              class="input-field"
+              placeholder="Email"
+              required
+            />
+            <input
+              type="password"
+              id="login-password"
+              class="input-field"
+              placeholder="Password"
+              required
+            />
+            <input type="submit" class="submit-btn" value="Log in" />
+          </form>
+
+          <form id="register" class="input-group">
+            <input
+              type="email"
+              id="register-email"
+              class="input-field"
+              placeholder="Email"
+              required
+            />
+            <input
+              type="password"
+              id="register-password"
+              class="input-field"
+              placeholder="Password"
+              required
+            />
+            <input type="submit" class="submit-btn" value="Register" />
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
+      import {
+        getAuth,
+        createUserWithEmailAndPassword,
+        signInWithEmailAndPassword,
+        GoogleAuthProvider,
+        signInWithPopup,
+      } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyAKR_Urt79aX0GqcN52CEwLCJi9bF_iD98",
+        authDomain: "nguyendueducation-44987.firebaseapp.com",
+        projectId: "nguyendueducation-44987",
+        storageBucket: "nguyendueducation-44987.firebasestorage.app",
+        messagingSenderId: "646604023441",
+        appId: "1:646604023441:web:1a1c5bf0097d52b170c130",
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+
+      // Đăng ký
+      document.getElementById("register").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const email = document.getElementById("register-email").value;
+        const password = document.getElementById("register-password").value;
+        createUserWithEmailAndPassword(auth, email, password)
+          .then((userCredential) => {
+            alert("Đăng ký thành công!");
+            localStorage.setItem("currentUser", JSON.stringify({ email }));
+            window.location.href = "index.html";
+          })
+          .catch((error) => alert(error.message));
+      });
+
+      // Đăng nhập
+      document.getElementById("login").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const email = document.getElementById("login-email").value;
+        const password = document.getElementById("login-password").value;
+        signInWithEmailAndPassword(auth, email, password)
+          .then((userCredential) => {
+            alert("Đăng nhập thành công!");
+            localStorage.setItem("currentUser", JSON.stringify({ email }));
+            window.location.href = "index.html";
+          })
+          .catch((error) => alert(error.message));
+      });
+
+      // Google Login
+      document
+        .getElementById("google-login-btn")
+        .addEventListener("click", () => {
+          const provider = new GoogleAuthProvider();
+          signInWithPopup(auth, provider)
+            .then((result) => {
+              const user = result.user;
+              alert("Đăng nhập bằng Google thành công!");
+              localStorage.setItem(
+                "currentUser",
+                JSON.stringify({ email: user.email, avatar: user.photoURL })
+              );
+              window.location.href = "index.html";
+            })
+            .catch((error) => alert("Lỗi đăng nhập Google: " + error.message));
+        });
+    </script>
+
+    <script>
+      // Chuyển qua lại giữa form login/register
+      const loginForm = document.getElementById("login");
+      const registerForm = document.getElementById("register");
+      const btn = document.getElementById("btn");
+      const after = document.getElementById("after");
+
+      function showRegister() {
+        loginForm.style.left = "-500px";
+        registerForm.style.left = "0px";
+        btn.style.left = "110px";
+        after.style.left = "0";
+      }
+
+      function showLogin() {
+        loginForm.style.left = "0px";
+        registerForm.style.left = "500px";
+        btn.style.left = "0px";
+        after.style.left = "50%";
+      }
+    </script>
+  </body>
+</html>

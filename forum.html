@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Diễn đàn Nguyễn Du</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/relativeTime.js"></script>
+    <script>
+      dayjs.extend(dayjs_plugin_relativeTime);
+    </script>
+    <style>
+      body {
+        background-color: #f2f3f5;
+        font-family: "Segoe UI", sans-serif;
+      }
+      .avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+      .avt {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        object-fit: cover;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      }
+      .chat-toggle-btn {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 60px;
+        height: 60px;
+        background-color: orange;
+        border-radius: 50%;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: transform 0.2s ease;
+        z-index: 1000;
+      }
+      .chat-toggle-btn:hover {
+        transform: scale(1.1);
+      }
+      .chat-box {
+        position: fixed;
+        bottom: 90px;
+        right: 20px;
+        width: 320px;
+        max-height: 500px;
+        background-color: #fff;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        display: none;
+        flex-direction: column;
+        z-index: 999;
+      }
+      .chat-box-header {
+        background: linear-gradient(90deg, #007bff, #00bfff);
+        color: white;
+        padding: 10px;
+        font-weight: 600;
+        text-align: center;
+      }
+      .chat-box-body {
+        padding: 10px;
+        overflow-y: auto;
+        flex: 1;
+        background-color: #f8f9fa;
+      }
+      .chat-box-footer {
+        padding: 10px;
+        background-color: #fff;
+        border-top: 1px solid #ddd;
+      }
+      .chat-message {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        padding: 8px;
+        margin-bottom: 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container py-4">
+      <!-- Header -->
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="d-flex align-items-center">
+          <a href="account.html" style="text-decoration: none; color: black">
+            <img
+              id="userAvatar"
+              src="https://i.pravatar.cc/100"
+              alt="avatar"
+              class="avt me-2"
+            />
+
+            <span id="welcomeText" class="fw-semibold"></span>
+          </a>
+        </div>
+        <h2 class="flex-grow-1 text-center mb-0">📝 Diễn đàn Nguyễn Du</h2>
+        <div class="position-relative">
+          <button id="notificationBtn" class="btn btn-light position-relative">
+            🔔
+            <span
+              id="notificationCount"
+              class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none"
+            >
+              0
+            </span>
+          </button>
+          <div
+            id="notificationList"
+            class="card shadow p-2 position-absolute end-0 mt-2"
+            style="
+              width: 250px;
+              max-height: 300px;
+              overflow-y: auto;
+              display: none;
+              z-index: 999;
+            "
+          ></div>
+        </div>
+      </div>
+
+      <div class="mb-3 d-flex justify-content-between">
+        <a href="index.html" class="btn btn-secondary">← Trở về trang chính</a>
+      </div>
+
+      <form id="postForm" class="mb-4">
+        <textarea
+          id="postContent"
+          class="form-control mb-2"
+          placeholder="Viết bài..."
+          required
+          rows="3"
+        ></textarea>
+        <input
+          type="file"
+          id="postImageInput"
+          accept="image/*"
+          class="form-control mb-2 d-none"
+        />
+        <img
+          id="postPreview"
+          class="img-fluid mb-2 d-none"
+          style="max-height: 300px"
+        />
+        <button type="submit" class="btn btn-primary">Đăng bài</button>
+      </form>
+
+      <div id="postList"></div>
+    </div>
+
+    <!-- Chat Box -->
+    <div class="chat-box" id="chatContainer">
+      <div class="chat-box-header">💬 Box Chat Chung</div>
+      <div class="chat-box-body" id="chatBox"></div>
+      <div class="chat-box-footer">
+        <input
+          style="display: none"
+          type="file"
+          id="chatImageInput"
+          accept="image/*"
+          class="form-control mb-2"
+        />
+        <div class="d-flex">
+          <input
+            type="text"
+            id="chatInput"
+            class="form-control me-2"
+            placeholder="Nhập tin nhắn..."
+          />
+          <button class="btn btn-primary" id="sendBtn">Gửi</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-toggle-btn" id="toggleChatBtn">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        height="32"
+        width="32"
+        viewBox="0 0 24 24"
+        fill="white"
+      >
+        <path
+          d="M20 2H4C2.89 2 2 2.89 2 4v16l4-4h14c1.1 0 2-.9 2-2V4c0-1.11-.9-2-2-2zm0 12H5.17L4 17.17V4h16v10z"
+        />
+      </svg>
+    </div>
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
+      import {
+        getFirestore,
+        collection,
+        addDoc,
+        query,
+        orderBy,
+        onSnapshot,
+        serverTimestamp,
+        doc,
+        updateDoc,
+        deleteDoc,
+        getDoc,
+        limit,
+        getDocs,
+        getCountFromServer,
+      } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
+      import {
+        getStorage,
+        ref,
+        uploadBytes,
+        getDownloadURL,
+      } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-storage.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyAKR_Urt79aX0GqcN52CEwLCJi9bF_iD98",
+        authDomain: "nguyendueducation-44987.firebaseapp.com",
+        projectId: "nguyendueducation-44987",
+        storageBucket: "nguyendueducation-44987.appspot.com",
+        messagingSenderId: "646604023441",
+        appId: "1:646604023441:web:1a1c5bf0097d52b170c130",
+      };
+      const notifiedCommentIds = new Set();
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+      const storage = getStorage(app);
+
+      const rawUser = JSON.parse(localStorage.getItem("currentUser") || "{}");
+
+      let currentUser = {
+        email: rawUser.email || "khách",
+        username: "Ẩn danh",
+        avatar: "https://i.pravatar.cc/100?u=default",
+      };
+
+      if (rawUser.email) {
+        try {
+          const userDoc = await getDoc(doc(db, "users", rawUser.email));
+          if (userDoc.exists()) {
+            const data = userDoc.data();
+            currentUser = {
+              email: rawUser.email,
+              username: data.username || rawUser.username || rawUser.email,
+              avatar:
+                data.avatar ||
+                rawUser.avatar ||
+                "https://i.pravatar.cc/100?u=default",
+            };
+            localStorage.setItem("currentUser", JSON.stringify(currentUser));
+          }
+        } catch (err) {
+          console.error("Không thể lấy thông tin mới nhất từ Firestore:", err);
+        }
+      }
+
+      const notificationBtn = document.getElementById("notificationBtn");
+      const notificationList = document.getElementById("notificationList");
+      const notificationCount = document.getElementById("notificationCount");
+      let notifications = [];
+
+      notificationBtn.addEventListener("click", () => {
+        const visible = notificationList.style.display === "block";
+        notificationList.style.display = visible ? "none" : "block";
+        notificationCount.style.display = "none";
+        notificationCount.innerText = "0";
+      });
+
+      function showCommentNotification(postId, commenter, content) {
+        const truncated =
+          content.length > 30 ? content.slice(0, 30) + "..." : content;
+        const id = Date.now() + Math.random().toString(36).substring(2, 8); // id ngẫu nhiên
+        const msg = {
+          id,
+          html: `<a href="post.html?id=${postId}" class="text-decoration-none text-dark notification-link" data-id="${id}">
+      💬 <strong>${commenter}</strong> đã bình luận bài viết: <em>"${truncated}"</em>
+    </a>`,
+        };
+        notifications.push(msg);
+        renderNotifications();
+      }
+      function renderNotifications() {
+        notificationList.innerHTML = notifications
+          .map((n) => `<div class="border-bottom py-1">${n.html}</div>`)
+          .join("");
+        notificationCount.innerText = notifications.length;
+        notificationCount.style.display = notifications.length
+          ? "inline-block"
+          : "none";
+
+        const links = document.querySelectorAll(".notification-link");
+        links.forEach((link) => {
+          link.addEventListener("click", (e) => {
+            const id = link.dataset.id;
+            notifications = notifications.filter((n) => n.id !== id);
+            renderNotifications();
+          });
+        });
+      }
+
+      const toggleChatBtn = document.getElementById("toggleChatBtn");
+      const chatContainer = document.getElementById("chatContainer");
+      toggleChatBtn.onclick = () => {
+        chatContainer.style.display =
+          chatContainer.style.display === "none" ||
+          chatContainer.style.display === ""
+            ? "flex"
+            : "none";
+      };
+
+      const chatBox = document.getElementById("chatBox");
+      const chatInput = document.getElementById("chatInput");
+      const sendBtn = document.getElementById("sendBtn");
+      sendBtn.onclick = async () => {
+        const msg = chatInput.value.trim();
+        if (!msg) return;
+
+        let freshUser = currentUser;
+        try {
+          const userDoc = await getDoc(doc(db, "users", currentUser.email));
+          if (userDoc.exists()) {
+            const data = userDoc.data();
+            freshUser = {
+              ...currentUser,
+              username: data.username || currentUser.username,
+              avatar: data.avatar || currentUser.avatar,
+            };
+            localStorage.setItem("currentUser", JSON.stringify(freshUser));
+            currentUser = freshUser;
+          }
+        } catch (err) {
+          console.error("Không thể cập nhật người dùng mới nhất:", err);
+        }
+
+        await addDoc(collection(db, "globalChat"), {
+          user: freshUser.email,
+          username: freshUser.username,
+          avatar: freshUser.avatar,
+          text: msg,
+          createdAt: serverTimestamp(),
+        });
+
+        chatInput.value = "";
+      };
+
+      document
+        .getElementById("chatImageInput")
+        .addEventListener("change", async (e) => {
+          const file = e.target.files[0];
+          if (!file) return;
+
+          let freshUser = currentUser;
+          try {
+            const userDoc = await getDoc(doc(db, "users", currentUser.email));
+            if (userDoc.exists()) {
+              const data = userDoc.data();
+              freshUser = {
+                ...currentUser,
+                username: data.username || currentUser.username,
+                avatar: data.avatar || currentUser.avatar,
+              };
+              localStorage.setItem("currentUser", JSON.stringify(freshUser));
+              currentUser = freshUser;
+            }
+          } catch (err) {
+            console.error("Không thể cập nhật người dùng mới nhất:", err);
+          }
+
+          const imageRef = ref(
+            storage,
+            `chatImages/${Date.now()}-${file.name}`
+          );
+          await uploadBytes(imageRef, file);
+          const imageUrl = await getDownloadURL(imageRef);
+
+          await addDoc(collection(db, "globalChat"), {
+            user: freshUser.email,
+            username: freshUser.username,
+            avatar: freshUser.avatar,
+            text: "",
+            imageUrl,
+            createdAt: serverTimestamp(),
+          });
+        });
+
+      const chatQuery = query(
+        collection(db, "globalChat"),
+        orderBy("createdAt", "asc")
+      );
+      onSnapshot(chatQuery, (snapshot) => {
+        chatBox.innerHTML = "";
+        snapshot.forEach((doc) => {
+          const m = doc.data();
+          const div = document.createElement("div");
+          div.className = "chat-message d-flex align-items-start mb-1";
+          div.innerHTML = `
+        <img src="${m.avatar}" class="avatar me-2">
+        <div>
+          <div><strong>${
+            m.username || m.user
+          }</strong> <small class="text-muted">${
+            m.createdAt ? dayjs(m.createdAt.toDate()).fromNow() : ""
+          }</small></div>
+          <div>${m.text || ""}</div>
+          ${
+            m.imageUrl
+              ? `<img src="${m.imageUrl}" class="img-fluid mt-1" style="max-height: 200px;">`
+              : ""
+          }
+        </div>`;
+          chatBox.appendChild(div);
+        });
+        chatBox.scrollTop = chatBox.scrollHeight;
+      });
+
+      const postForm = document.getElementById("postForm");
+      const postList = document.getElementById("postList");
+
+      const postQuery = query(
+        collection(db, "posts"),
+        orderBy("createdAt", "desc")
+      );
+      onSnapshot(postQuery, (snapshot) => {
+        postList.innerHTML = "";
+        snapshot.forEach((docSnap) => {
+          const p = docSnap.data();
+          const id = docSnap.id;
+          const div = document.createElement("div");
+          const liked = (p.likes || []).includes(currentUser.email);
+          div.className = "card mb-3";
+          div.innerHTML = `
+        <div class="card-body position-relative">
+  ${
+    p.author === currentUser.email
+      ? `
+    <div class="position-absolute top-0 end-0 mt-2 me-2 d-flex gap-1">
+      <button class="btn btn-sm btn-warning" onclick="editPost('${id}')">✏️</button>
+      <button class="btn btn-sm btn-danger" onclick="deletePost('${id}')">🗑️</button>
+    </div>
+  `
+      : ""
+  }
+  <div class="d-flex align-items-center mb-2">
+    <img src="${p.avatar}" class="avatar me-2">
+    <div>
+      <strong>${p.username || p.author}</strong>
+      <small class="text-muted ms-2">${
+        p.createdAt ? dayjs(p.createdAt.toDate()).fromNow() : ""
+      }</small>
+    </div>
+  </div>
+  <p id="content-${id}">${p.content}</p>
+  <div class="d-flex align-items-center gap-2 mt-2">
+    <button class="btn btn-sm ${
+      liked ? "btn-danger" : "btn-outline-danger"
+    }" onclick="toggleLike('${id}')">
+      ❤️ Thích (${(p.likes || []).length})
+    </button>
+  </div>
+          <div class="mt-2">
+            <input class="form-control mb-2" placeholder="Bình luận..." onkeydown="if(event.key==='Enter') addComment('${id}', this)">
+            <div id="comments-${id}"></div>
+          </div>
+        </div>`;
+          postList.appendChild(div);
+          loadComments(id, p.author, p.content);
+        });
+      });
+
+      window.editPost = async (id) => {
+        const ref = doc(db, "posts", id);
+        const snap = await getDoc(ref);
+        const oldContent = snap.data()?.content || "";
+        const newContent = prompt("Nội dung mới:", oldContent);
+        if (newContent && newContent !== oldContent) {
+          await updateDoc(ref, { content: newContent });
+        }
+      };
+
+      window.deletePost = async (id) => {
+        if (confirm("Xác nhận xóa bài viết?")) {
+          await deleteDoc(doc(db, "posts", id));
+        }
+      };
+
+      window.addComment = async (postId, input) => {
+        const text = input.value.trim();
+        if (!text) return;
+        await addDoc(collection(db, "posts", postId, "comments"), {
+          author: currentUser.email,
+          avatar: currentUser.avatar,
+          content: text,
+          createdAt: serverTimestamp(),
+        });
+        input.value = "";
+      };
+
+      async function loadComments(postId, postAuthor, postContent) {
+        const div = document.getElementById(`comments-${postId}`);
+        if (!div) return;
+
+        const q = query(
+          collection(db, "posts", postId, "comments"),
+          orderBy("createdAt", "desc"),
+          limit(5)
+        );
+
+        onSnapshot(q, (snap) => {
+          div.innerHTML = "";
+
+          snap.forEach((docSnap) => {
+            const c = docSnap.data();
+            const cid = docSnap.id;
+
+            if (
+              postAuthor === currentUser.email &&
+              c.author !== currentUser.email &&
+              !notifiedCommentIds.has(cid)
+            ) {
+              showCommentNotification(postId, c.author, postContent);
+              notifiedCommentIds.add(cid);
+            }
+
+            const el = document.createElement("div");
+            el.className = "border rounded p-1 mb-1";
+            const liked = (c.likes || []).includes(currentUser.email);
+
+            el.innerHTML = `
+        <div class="d-flex align-items-center mb-1">
+          <img src="${c.avatar}" class="avatar me-2">
+          <strong>${c.author}</strong>
+          <small class="text-muted ms-2">${
+            c.createdAt ? dayjs(c.createdAt.toDate()).fromNow() : ""
+          }</small>
+        </div>
+        <div>${c.content}</div>
+        <div class="d-flex align-items-center gap-2 my-1">
+          <button class="btn btn-sm ${
+            liked ? "btn-danger" : "btn-outline-danger"
+          }"
+            onclick="toggleCommentLike('${postId}', '${cid}')">
+            ❤️ (${(c.likes || []).length})
+          </button>
+          <button class="btn btn-sm btn-outline-primary" onclick="showReplyInput('${postId}', '${cid}')">↩️ Phản hồi</button>
+        </div>
+        <div id="reply-box-${cid}" style="margin-left: 2rem;"></div>
+      `;
+
+            div.appendChild(el);
+            loadReplies(postId, cid, el, c.author, postContent);
+          });
+
+          if (!document.getElementById(`more-comments-${postId}`)) {
+            const moreBtn = document.createElement("button");
+            moreBtn.className = "btn btn-sm btn-link";
+            moreBtn.id = `more-comments-${postId}`;
+            moreBtn.onclick = () =>
+              (window.location.href = `post.html?id=${postId}`);
+            div.appendChild(moreBtn);
+
+            const totalQuery = collection(db, "posts", postId, "comments");
+            getCountFromServer(totalQuery).then((res) => {
+              const total = res.data().count;
+              moreBtn.textContent = `Xem thêm (${total})`;
+            });
+          }
+        });
+      }
+
+      async function loadReplies(
+        postId,
+        commentId,
+        parentElement,
+        commentAuthor,
+        postContent
+      ) {
+        const div = document.createElement("div");
+        div.style.marginLeft = "2rem";
+
+        const q = query(
+          collection(db, "posts", postId, "comments", commentId, "replies"),
+          orderBy("createdAt", "desc")
+        );
+
+        onSnapshot(q, (snap) => {
+          div.innerHTML = "";
+
+          snap.forEach((docSnap) => {
+            const r = docSnap.data();
+
+            if (
+              commentAuthor === currentUser.email &&
+              r.author !== currentUser.email
+            ) {
+              const truncated = (postContent || "").slice(0, 30) + "...";
+              const msg = `<a href="post.html?id=${postId}" class="text-decoration-none text-dark">
+          <strong>${r.username || r.author}</strong>
+ đã phản hồi bình luận của bạn trong bài viết: <em>"${truncated}"</em>
+        </a>`;
+              notifications.push(msg);
+              notificationCount.innerText = notifications.length;
+              notificationCount.style.display = "inline-block";
+              notificationList.innerHTML = notifications
+                .map((n) => `<div class="border-bottom py-1">${n}</div>`)
+                .join("");
+            }
+
+            const reply = document.createElement("div");
+            reply.className = "border rounded p-1 mb-1 bg-light";
+            const liked = (r.likes || []).includes(currentUser.email);
+
+            reply.innerHTML = `
+        <div class="d-flex align-items-center mb-1">
+          <img src="${r.avatar}" class="avatar me-2">
+          <strong>${r.username || r.author}</strong>
+
+          <small class="text-muted ms-2">${
+            r.createdAt ? dayjs(r.createdAt.toDate()).fromNow() : ""
+          }</small>
+        </div>
+        <div>${r.content}</div>
+        <div class="d-flex gap-2 my-1">
+          <button class="btn btn-sm ${
+            liked ? "btn-danger" : "btn-outline-danger"
+          }"
+            onclick="toggleReplyLike('${postId}', '${commentId}', '${
+              docSnap.id
+            }')">
+            ❤️ (${(r.likes || []).length})
+          </button>
+        </div>
+      `;
+
+            div.appendChild(reply);
+          });
+        });
+
+        parentElement.appendChild(div);
+      }
+
+      if (!currentUser || !currentUser.email) {
+        window.location.href = "login.html";
+      } else {
+        const rawUser = JSON.parse(localStorage.getItem("currentUser") || "{}");
+        const name = rawUser.username || rawUser.email || "Ẩn danh";
+        const avatar = rawUser.avatar || "https://i.pravatar.cc/100?u=default";
+
+        document.getElementById("welcomeText").innerText = ` ${name}`;
+        document.getElementById("userAvatar").src = avatar;
+      }
+
+      document
+        .getElementById("postForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const content = document.getElementById("postContent").value.trim();
+          const file = document.getElementById("postImageInput").files[0];
+          let imageUrl = "";
+          if (file) {
+            const imageRef = ref(
+              storage,
+              `postImages/${Date.now()}-${file.name}`
+            );
+            await uploadBytes(imageRef, file);
+            imageUrl = await getDownloadURL(imageRef);
+          }
+          await addDoc(collection(db, "posts"), {
+            author: currentUser.email,
+            username: currentUser.username,
+            avatar: currentUser.avatar,
+            content,
+            imageUrl,
+            createdAt: serverTimestamp(),
+          });
+          document.getElementById("postForm").reset();
+        });
+      const postImageInput = document.getElementById("postImageInput");
+      const postPreview = document.getElementById("postPreview");
+
+      postImageInput.addEventListener("change", (e) => {
+        const file = e.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = () => {
+            postPreview.src = reader.result;
+            postPreview.classList.remove("d-none");
+          };
+          reader.readAsDataURL(file);
+        } else {
+          postPreview.src = "";
+          postPreview.classList.add("d-none");
+        }
+      });
+
+      postForm.addEventListener("submit", () => {
+        postPreview.src = "";
+        postPreview.classList.add("d-none");
+      });
+      window.toggleLike = async function (postId) {
+        const postRef = doc(db, "posts", postId);
+        const snap = await getDoc(postRef);
+        const data = snap.data();
+        let likes = data.likes || [];
+
+        const index = likes.indexOf(currentUser.email);
+        if (index >= 0) {
+          likes.splice(index, 1);
+        } else {
+          likes.push(currentUser.email);
+        }
+
+        await updateDoc(postRef, { likes });
+      };
+      window.toggleLike = async function (postId) {
+        const postRef = doc(db, "posts", postId);
+        const snap = await getDoc(postRef);
+        const data = snap.data();
+        let likes = data.likes || [];
+
+        const index = likes.indexOf(currentUser.email);
+        if (index >= 0) {
+          likes.splice(index, 1);
+        } else {
+          likes.push(currentUser.email);
+        }
+
+        await updateDoc(postRef, { likes });
+      };
+      window.toggleCommentLike = async function (postId, commentId) {
+        const commentRef = doc(db, "posts", postId, "comments", commentId);
+        const snap = await getDoc(commentRef);
+        const data = snap.data();
+        let likes = data.likes || [];
+
+        const i = likes.indexOf(currentUser.email);
+        if (i >= 0) likes.splice(i, 1);
+        else likes.push(currentUser.email);
+
+        await updateDoc(commentRef, { likes });
+      };
+      window.toggleReplyLike = async function (postId, commentId, replyId) {
+        const ref = doc(
+          db,
+          "posts",
+          postId,
+          "comments",
+          commentId,
+          "replies",
+          replyId
+        );
+        const snap = await getDoc(ref);
+        const data = snap.data();
+        let likes = data.likes || [];
+
+        const i = likes.indexOf(currentUser.email);
+        if (i >= 0) likes.splice(i, 1);
+        else likes.push(currentUser.email);
+
+        await updateDoc(ref, { likes });
+      };
+
+      window.showReplyInput = function (postId, commentId) {
+        const replyBox = document.getElementById(`reply-box-${commentId}`);
+        if (replyBox.innerHTML.trim()) {
+          replyBox.innerHTML = "";
+          return;
+        }
+
+        replyBox.innerHTML = `
+    <div class="mt-2">
+      <input type="text" class="form-control mb-1" id="replyInput-${commentId}" placeholder="Nhập phản hồi...">
+      <button class="btn btn-sm btn-success" onclick="sendReply('${postId}', '${commentId}')">Gửi phản hồi</button>
+    </div>
+  `;
+      };
+
+      window.sendReply = async function (postId, commentId) {
+        const input = document.getElementById(`replyInput-${commentId}`);
+        const text = input.value.trim();
+        if (!text) return;
+
+        await addDoc(
+          collection(db, "posts", postId, "comments", commentId, "replies"),
+          {
+            author: currentUser.email,
+            username: currentUser.username,
+            avatar: currentUser.avatar,
+            content: text,
+            createdAt: serverTimestamp(),
+          }
+        );
+
+        input.value = "";
+      };
+    </script>
+  </body>
+</html>

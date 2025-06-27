@@ -1,0 +1,229 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nguyễn Du</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://getbootstrap.com/docs/5.3/assets/css/docs.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+    ></script>
+    <style>
+      .drum-container {
+        border: none !important;
+        height: 572px;
+      }
+
+      .nguyendu {
+        display: flex;
+        position: absolute !important;
+        width: auto !important;
+        height: 70% !important;
+        bottom: -2px;
+        left: -56px;
+        justify-content: center;
+        align-items: center;
+        z-index: 10;
+      }
+      .forum-button {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        width: 60px;
+        height: 60px;
+        background-color: #ff9f00;
+        color: white;
+        border-radius: 50%;
+        font-size: 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        z-index: 1000;
+        transition: transform 0.2s ease;
+      }
+      .forum-button:hover {
+        transform: scale(1.1);
+      }
+    </style>
+  </head>
+  <body>
+    <a href="forum.html" class="forum-button"> 💬 </a>
+
+    <nav
+      class="navbar navbar-expand-lg bg-body-tertiary"
+      class="navbar"
+      style="background-color: #ff9f00"
+    >
+      <div class="container-fluid">
+        <a class="navbar-brand" href="index.html"
+          ><img src="img/snapedit_1745406959124.jpeg" class="avt" alt=""
+        /></a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a
+                class="nav-link active underline-animate"
+                aria-current="page"
+                href="Tieusu.html"
+                >🕑Tiểu sử</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link underline-animate"
+                href="vinhdanhvacongnhan.html"
+                >🏛️ Vinh danh và công nhận</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link underline-animate"
+                href="giatridisanvavanhoa.html"
+                >🏺 Giá trị di sản và văn hóa</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link underline-animate"
+                href="congtacbaotonvaphathuy.html"
+                >🎬 Công tác bảo tồn và phát huy</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link underline-animate" href="TruyenKieu.html"
+                >💭Truyện Kiều</a
+              >
+            </li>
+            <li class="nav-item">
+              <a href="2005VDLA038 .pdf" download>
+                <button class="logout-btn">
+                  Tải thông tin chi tiết tại đây
+                </button>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div
+        style="
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 16px;
+        "
+      >
+        <div style="display: flex; align-items: center">
+          <img
+            src="https://hienthao.com/wp-content/uploads/2023/05/c6e56503cfdd87da299f72dc416023d4.jpg"
+            class="avt"
+            id="userAvatar"
+            alt="avatar"
+          />
+          <input
+            type="file"
+            id="avatarInput"
+            accept="image/*"
+            style="display: none"
+          />
+
+          <h4 id="welcomeText" style="margin: 0"></h4>
+        </div>
+        <button class="logout-btn" onclick="logout()">Đăng xuất</button>
+      </div>
+    </nav>
+    <div class="content">
+      <div class="image-container">
+        <div class="drum-container">
+          <img
+            class="chin rotate-cw"
+            src="img/Vong 09.svg"
+            alt="Vòng ngoài cùng"
+          />
+          <img class="tam rotate-ccw" src="img/Vong 08.svg" alt="Vòng giữa" />
+          <img
+            class="bay rotate-cw"
+            src="img/Vong 07.svg"
+            alt="Vòng trong cùng"
+          />
+          <img
+            class="sau rotate-ccw"
+            src="img/Vong 06.svg"
+            alt="Vòng trong nhất"
+          />
+          <img
+            class="nam rotate-cw"
+            src="img/Vong 05.svg"
+            alt="Vòng trong nhì"
+          />
+          <img
+            class="tu rotate-ccw"
+            src="img/Vong 04.svg"
+            alt="Vòng trong tam"
+          />
+          <img class="ba rotate-cw" src="img/Vong 03.svg" alt="Vòng trong tứ" />
+          <img
+            class="hai rotate-ccw"
+            src="img/Vong 02.svg"
+            alt="Vòng trong ngũ"
+          />
+          <img
+            class="mot rotate-cw"
+            src="img/Vong 01.svg"
+            alt="Vòng trong lục"
+          />
+          <img class="nguyendu" src="img/anhnguyendu.png" alt="ảnh Nguyễn Du" />
+        </div>
+        <div class="anhtruyenkieu">
+          <img
+            src="img/screenshot_1745479404.png"
+            alt=""
+            style="width: 100%; height: auto"
+          /><br />
+          <p style="text-align: center">
+            Cảnh vợ chồng Nguyễn Du trong “Đại thi hào Nguyễn Du”
+          </p>
+        </div>
+      </div>
+      <div class="text-container">
+        <p>
+          Đại thi hào Nguyễn Du (1765-1820), tên tự là Tố Như, hiệu Thanh Hiên,
+          quê ở Tiên Điền, cháu nội ông Phụ Đức, là con trai thứ 7 của Xuân Nhạc
+          công. Sinh ra trong một gia đình đại quý tộc, gia thế của Nguyễn Du
+          được coi là có thế lực bậc nhất đương thời. Gắn với những biến cố lịch
+          sử của giai đoạn cuối thế kỷ XVIII-XIX, Nguyễn Du có một cuộc đời từng
+          trải, phiêu bạt. Từng đỗ tam trường, nhiều lần được bổ làm quan dưới
+          triều đại Tây Sơn, nhưng ông không chịu được cảnh nghiệp quan trường,
+          nhiều lúc cáo bệnh về quê. Năm 1820, ông được cử làm Chánh sứ Trung
+          Quốc, nhưng chưa kịp đi, thì bị bệnh, qua đời. Ông để lại nhiều tác
+          phẩm văn chương có giá trị, nổi tiếng nhất là
+          <a style="">Truyện Kiều</a>. Năm 1965, Nguyễn Du được Hội đồng Hòa
+          bình thế giới công nhận là Danh nhân văn hóa thế giới.
+        </p>
+      </div>
+    </div>
+    <script type="module" src="all.js"></script>
+  </body>
+</html>

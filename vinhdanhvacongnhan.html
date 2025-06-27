@@ -1,0 +1,227 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nguyễn Du</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://getbootstrap.com/docs/5.3/assets/css/docs.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+    ></script>
+    <style>
+      .forum-button {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        width: 60px;
+        height: 60px;
+        background-color: #ff9f00;
+        color: white;
+        border-radius: 50%;
+        font-size: 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        z-index: 1000;
+        transition: transform 0.2s ease;
+      }
+      .forum-button:hover {
+        transform: scale(1.1);
+      }
+    </style>
+  </head>
+  <body>
+    <a href="forum.html" class="forum-button"> 💬 </a>
+
+    <nav
+      class="navbar navbar-expand-lg bg-body-tertiary"
+      class="navbar"
+      style="background-color: #ff9f00"
+    >
+      <div class="container-fluid">
+        <a class="navbar-brand" href="index.html"
+          ><img src="img/snapedit_1745406959124.jpeg" class="avt" alt=""
+        /></a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a
+                class="nav-link active underline-animate"
+                aria-current="page"
+                href="Tieusu.html"
+                >🕑Tiểu sử</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link underline-animate"
+                href="vinhdanhvacongnhan.html"
+                >🏛️ Vinh danh và công nhận</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link underline-animate"
+                href="giatridisanvavanhoa.html"
+                >🏺 Giá trị di sản và văn hóa</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link underline-animate"
+                href="congtacbaotonvaphathuy.html"
+                >🎬 Công tác bảo tồn và phát huy</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link underline-animate" href="TruyenKieu.html"
+                >💭Truyện Kiều</a
+              >
+            </li>
+            <li class="nav-item">
+              <a href="2005VDLA038 .pdf" download>
+                <button class="logout-btn">
+                  Tải thông tin chi tiết tại đây
+                </button>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div
+        style="
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 16px;
+        "
+      >
+        <div style="display: flex; align-items: center">
+          <img
+            src="https://i.pravatar.cc/100"
+            class="avt"
+            id="userAvatar"
+            alt="avatar"
+          />
+          <input
+            type="file"
+            id="avatarInput"
+            accept="image/*"
+            style="display: none"
+          />
+
+          <h4 id="welcomeText" style="margin: 0"></h4>
+        </div>
+        <button class="logout-btn" onclick="logout()">Đăng xuất</button>
+      </div>
+    </nav>
+    <div class="content">
+      <div
+        class="text-container"
+        style="font-family: 'Lora', 'Times New Roman', serif"
+      >
+        <p>
+          Đại thi hào Nguyễn Du (1765–1820), tác giả kiệt tác Truyện Kiều, đã
+          được
+          <strong>UNESCO công nhận là Danh nhân văn hóa thế giới</strong> vào
+          năm 1965 nhờ những đóng góp to lớn cho nền văn hóa và văn học Việt Nam
+          cũng như thế giới. Đến năm 2013, tại kỳ họp lần thứ 37 của Đại Hội
+          đồng UNESCO diễn ra ở Paris, Nguyễn Du tiếp tục được
+          <strong>vinh danh cùng với 107 danh nhân văn hóa toàn cầu</strong>,
+          khẳng định tầm ảnh hưởng sâu rộng và bền vững của ông trong dòng chảy
+          văn minh nhân loại. <br /><br />
+          Nhằm ghi nhớ công lao và tôn vinh giá trị văn hóa do ông để lại,
+          <strong>Khu lưu niệm Đại thi hào Nguyễn Du</strong> tại Tiên Điền,
+          huyện Nghi Xuân, tỉnh Hà Tĩnh đã được
+          <strong
+            >Thủ tướng Chính phủ công nhận là Di tích Quốc gia đặc biệt</strong
+          >
+          theo Quyết định số 1419/QĐ-TTg ngày 27/9/2012. Đây là nơi lưu giữ các
+          di tích gốc, hiện vật quý giá, và là không gian văn hóa phản ánh đầy
+          đủ cuộc đời, sự nghiệp, dòng họ và quê hương Nguyễn Du. <br /><br />
+          Các hoạt động vinh danh Nguyễn Du tại Khu lưu niệm bao gồm:
+          <em
+            >tổ chức lễ kỷ niệm ngày sinh - ngày mất, công diễn vở kịch thơ
+            “Hoạn Thư ghen”, triển lãm tranh minh họa Truyện Kiều, hội thảo khoa
+            học về Tiếng Việt trong Truyện Kiều, và các cuộc thi “Bạn đọc thuộc
+            Kiều”, “Viết văn tế Nguyễn Du”</em
+          >. Ngoài ra, bộ phim tài liệu – nghệ thuật “<strong
+            >Đại thi hào Nguyễn Du</strong
+          >” được sản xuất và phát hành năm 2021 là một nỗ lực lớn trong công
+          cuộc
+          <strong
+            >bảo tồn, phát huy và quảng bá di sản văn hóa Nguyễn Du</strong
+          >
+          tới công chúng trong và ngoài nước.
+        </p>
+      </div>
+      <div class="image-container">
+        <div class="drum-container">
+          <img
+            class="chin rotate-cw"
+            src="img/Vong 09.svg"
+            alt="Vòng ngoài cùng"
+          />
+          <img class="tam rotate-ccw" src="img/Vong 08.svg" alt="Vòng giữa" />
+          <img
+            class="bay rotate-cw"
+            src="img/Vong 07.svg"
+            alt="Vòng trong cùng"
+          />
+          <img
+            class="sau rotate-ccw"
+            src="img/Vong 06.svg"
+            alt="Vòng trong nhất"
+          />
+          <img
+            class="nam rotate-cw"
+            src="img/Vong 05.svg"
+            alt="Vòng trong nhì"
+          />
+          <img
+            class="tu rotate-ccw"
+            src="img/Vong 04.svg"
+            alt="Vòng trong tam"
+          />
+          <img class="ba rotate-cw" src="img/Vong 03.svg" alt="Vòng trong tứ" />
+          <img
+            class="hai rotate-ccw"
+            src="img/Vong 02.svg"
+            alt="Vòng trong ngũ"
+          />
+          <img
+            class="mot rotate-cw"
+            src="img/Vong 01.svg"
+            alt="Vòng trong lục"
+          />
+          <img class="nguyendu" src="img/anhnguyendu.png" alt="ảnh Nguyễn Du" />
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="all.js"></script>
+  </body>
+</html>

@@ -1,0 +1,314 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nguyễn Du</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://getbootstrap.com/docs/5.3/assets/css/docs.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+    ></script>
+    <style>
+      .drum-container {
+        border: none;
+        height: 572px;
+        border: none;
+      }
+      .nguyendu {
+        display: flex;
+        position: absolute !important;
+        width: auto !important;
+        height: 70% !important;
+        bottom: -5px; /* Adjust this value to position the image vertically */
+        justify-content: center;
+        align-items: center;
+        z-index: 10; /* Ensure this is above the drum images */
+      }
+      .mmb {
+        height: 500px;
+        z-index: 99999999999999999999999999999999;
+      }
+      .forum-button {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        width: 60px;
+        height: 60px;
+        background-color: #ff9f00;
+        color: white;
+        border-radius: 50%;
+        font-size: 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        z-index: 1000;
+        transition: transform 0.2s ease;
+      }
+      .forum-button:hover {
+        transform: scale(1.1);
+      }
+    </style>
+  </head>
+  <body>
+    <a href="forum.html" class="forum-button"> 💬 </a>
+
+    <nav
+      class="navbar navbar-expand-lg bg-body-tertiary"
+      class="navbar"
+      style="background-color: #ff9f00"
+    >
+      <div class="container-fluid">
+        <a class="navbar-brand" href="index.html"
+          ><img src="img/snapedit_1745406959124.jpeg" class="avt" alt=""
+        /></a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a
+                class="nav-link active underline-animate"
+                aria-current="page"
+                href="Tieusu.html"
+                >🕑Tiểu sử</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link underline-animate"
+                href="vinhdanhvacongnhan.html"
+                >🏛️ Vinh danh và công nhận</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link underline-animate"
+                href="giatridisanvavanhoa.html"
+                >🏺 Giá trị di sản và văn hóa</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link underline-animate"
+                href="congtacbaotonvaphathuy.html"
+                >🎬 Công tác bảo tồn và phát huy</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link underline-animate" href="TruyenKieu.html"
+                >💭Truyện Kiều</a
+              >
+            </li>
+            <li class="nav-item">
+              <a href="2005VDLA038 .pdf" download>
+                <button class="logout-btn">
+                  Tải thông tin chi tiết tại đây
+                </button>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div
+        style="
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 16px;
+        "
+      >
+        <div style="display: flex; align-items: center">
+          <img
+            src="https://i.pravatar.cc/100"
+            class="avt"
+            id="userAvatar"
+            alt="avatar"
+          />
+          <input
+            type="file"
+            id="avatarInput"
+            accept="image/*"
+            style="display: none"
+          />
+
+          <h4 id="welcomeText" style="margin: 0"></h4>
+        </div>
+        <button class="logout-btn" onclick="logout()">Đăng xuất</button>
+      </div>
+    </nav>
+    <div class="content">
+      <div class="image-container">
+        <div class="drum-container">
+          <img
+            class="chin rotate-cw"
+            src="img/Vong 09.svg"
+            alt="Vòng ngoài cùng"
+          />
+          <img class="tam rotate-ccw" src="img/Vong 08.svg" alt="Vòng giữa" />
+          <img
+            class="bay rotate-cw"
+            src="img/Vong 07.svg"
+            alt="Vòng trong cùng"
+          />
+          <img
+            class="sau rotate-ccw"
+            src="img/Vong 06.svg"
+            alt="Vòng trong nhất"
+          />
+          <img
+            class="nam rotate-cw"
+            src="img/Vong 05.svg"
+            alt="Vòng trong nhì"
+          />
+          <img
+            class="tu rotate-ccw"
+            src="img/Vong 04.svg"
+            alt="Vòng trong tam"
+          />
+          <img class="ba rotate-cw" src="img/Vong 03.svg" alt="Vòng trong tứ" />
+          <img
+            class="hai rotate-ccw"
+            src="img/Vong 02.svg"
+            alt="Vòng trong ngũ"
+          />
+          <img
+            class="mot rotate-cw"
+            src="img/Vong 01.svg"
+            alt="Vòng trong lục"
+          />
+          <img class="nguyendu" src="img/anhnguyendu.png" alt="ảnh Nguyễn Du" />
+        </div>
+
+        <div class="anhtruyenkieu">
+          <div id="carouselExampleIndicators" class="carousel slide">
+            <div class="carousel-indicators">
+              <button
+                type="button"
+                data-bs-target="#carouselExampleIndicators"
+                data-bs-slide-to="0"
+                class="active"
+                aria-current="true"
+                aria-label="Slide 1"
+              ></button>
+              <button
+                type="button"
+                data-bs-target="#carouselExampleIndicators"
+                data-bs-slide-to="1"
+                aria-label="Slide 2"
+              ></button>
+              <button
+                type="button"
+                data-bs-target="#carouselExampleIndicators"
+                data-bs-slide-to="2"
+                aria-label="Slide 3"
+              ></button>
+            </div>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img
+                  src="img/Picture1.png"
+                  class="d-block w-100 mmb"
+                  alt="..."
+                />
+              </div>
+              <div class="carousel-item">
+                <img
+                  src="img/Picture2.png"
+                  class="d-block w-100 mmb"
+                  alt="..."
+                />
+              </div>
+              <div class="carousel-item">
+                <img
+                  src="img/Picture3.png"
+                  class="d-block w-100 mmb"
+                  alt="..."
+                />
+              </div>
+            </div>
+            <button
+              class="carousel-control-prev"
+              type="button"
+              data-bs-target="#carouselExampleIndicators"
+              data-bs-slide="prev"
+            >
+              <span
+                class="carousel-control-prev-icon"
+                aria-hidden="true"
+              ></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button
+              class="carousel-control-next"
+              type="button"
+              data-bs-target="#carouselExampleIndicators"
+              data-bs-slide="next"
+            >
+              <span
+                class="carousel-control-next-icon"
+                aria-hidden="true"
+              ></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+          <p style="text-align: center">
+            Các hiện vật được trưng bày tại Bảo tàng Nguyễn Du <br />
+            [Nguồn: Phạm Thị Vân Nam ]
+          </p>
+        </div>
+      </div>
+      <div class="text-container">
+        <p style="font-family: 'Lora', 'Times New Roman', serif">
+          Khu lưu niệm Đại thi hào Nguyễn Du không chỉ là một di tích lịch sử
+          đơn thuần, mà còn là một không gian chứa đựng
+          <strong>giá trị di sản văn hóa đặc sắc</strong> của vùng đất Tiên
+          Điền, huyện Nghi Xuân, tỉnh Hà Tĩnh. Với hơn 400 năm tồn tại và phát
+          triển, nơi đây hội tụ ba không gian văn hóa lớn: văn hóa làng Tiên
+          Điền, văn hóa dòng họ Nguyễn - Tiên Điền và văn hóa Nguyễn Du cùng
+          Truyện Kiều. <br /><br />
+          Khu lưu niệm mang đậm dấu ấn lịch sử, không chỉ giúp thế hệ hôm nay
+          hiểu sâu sắc hơn về cuộc đời, sự nghiệp của Đại thi hào Nguyễn Du, mà
+          còn góp phần lưu giữ những giá trị tinh thần cao đẹp của dân tộc Việt
+          Nam. Những hiện vật quý giá, các công trình kiến trúc cổ, các hoạt
+          động lễ hội, biểu diễn dân ca, trò Kiều, lẩy Kiều... là minh chứng
+          sống động cho sự bảo tồn và phát huy không ngừng của di sản này.
+          <br /><br />
+          Ngoài ý nghĩa tinh thần, Khu lưu niệm còn có
+          <strong>giá trị kinh tế – du lịch</strong> lớn. Mỗi năm, nơi đây thu
+          hút hàng chục nghìn lượt khách trong và ngoài nước, đóng vai trò quan
+          trọng trong việc phát triển kinh tế địa phương, thúc đẩy các ngành
+          dịch vụ, lưu trú, ẩm thực, quà lưu niệm... Đồng thời, các hoạt động
+          giáo dục, truyền thông cũng được đẩy mạnh thông qua sách báo, phim tài
+          liệu, các cuộc thi tìm hiểu Truyện Kiều, góp phần nâng cao nhận thức
+          cộng đồng về việc bảo tồn giá trị văn hóa. <br /><br />
+          Như vậy, di sản văn hóa tại Khu lưu niệm Đại thi hào Nguyễn Du là sự
+          kết tinh giữa <em>quá khứ - hiện tại - tương lai</em>, là cầu nối văn
+          hóa dân tộc vươn tầm thế giới, là niềm tự hào không chỉ của nhân dân
+          Nghi Xuân mà của cả dân tộc Việt Nam.
+        </p>
+      </div>
+    </div>
+    <script type="module" src="all.js"></script>
+  </body>
+</html>

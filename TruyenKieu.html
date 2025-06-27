@@ -1,0 +1,361 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nguyễn Du</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://getbootstrap.com/docs/5.3/assets/css/docs.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+    ></script>
+    <style>
+      .drum-container {
+        border: none !important;
+        height: 572px;
+      }
+      .nguyendu {
+        display: flex;
+        position: absolute !important;
+        width: auto !important;
+        height: 70% !important;
+        bottom: -2px;
+        left: -56px;
+        justify-content: center;
+        align-items: center;
+        z-index: 10;
+      }
+      .forum-button {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        width: 60px;
+        height: 60px;
+        background-color: #ff9f00;
+        color: white;
+        border-radius: 50%;
+        font-size: 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        z-index: 1000;
+        transition: transform 0.2s ease;
+      }
+      .forum-button:hover {
+        transform: scale(1.1);
+      }
+      .download-tp {
+        background-color: #fffe00;
+        color: black;
+        outline: none;
+        border: none;
+        width: 100%;
+        height: 45px;
+        font-size: 20px;
+        border-radius: 10px;
+        margin: 30px 0px 70px 0px;
+      }
+      .download-tp:hover {
+        background: #ff7830;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="forum.html" class="forum-button"> 💬 </a>
+
+    <nav
+      class="navbar navbar-expand-lg bg-body-tertiary"
+      class="navbar"
+      style="background-color: #ff9f00"
+    >
+      <div class="container-fluid">
+        <a class="navbar-brand" href="index.html"
+          ><img src="img/snapedit_1745406959124.jpeg" class="avt" alt=""
+        /></a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a
+                class="nav-link active underline-animate"
+                aria-current="page"
+                href="Tieusu.html"
+                >🕑Tiểu sử</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link underline-animate"
+                href="vinhdanhvacongnhan.html"
+                >🏛️ Vinh danh và công nhận</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link underline-animate"
+                href="giatridisanvavanhoa.html"
+                >🏺 Giá trị di sản và văn hóa</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link underline-animate"
+                href="congtacbaotonvaphathuy.html"
+                >🎬 Công tác bảo tồn và phát huy</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link underline-animate" href="TruyenKieu.html"
+                >💭Truyện Kiều</a
+              >
+            </li>
+            <li class="nav-item">
+              <a href="2005VDLA038 .pdf" download>
+                <button class="logout-btn">
+                  Tải thông tin chi tiết tại đây
+                </button>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div
+        style="
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 16px;
+        "
+      >
+        <div style="display: flex; align-items: center">
+          <img
+            src="https://i.pravatar.cc/100"
+            class="avt"
+            id="userAvatar"
+            alt="avatar"
+          />
+          <input
+            type="file"
+            id="avatarInput"
+            accept="image/*"
+            style="display: none"
+          />
+
+          <h4 id="welcomeText" style="margin: 0"></h4>
+        </div>
+        <button class="logout-btn" onclick="logout()">Đăng xuất</button>
+      </div>
+    </nav>
+    <div class="content">
+      <div class="image-container">
+        <div class="drum-container">
+          <img
+            class="chin rotate-cw"
+            src="img/Vong 09.svg"
+            alt="Vòng ngoài cùng"
+          />
+          <img class="tam rotate-ccw" src="img/Vong 08.svg" alt="Vòng giữa" />
+          <img
+            class="bay rotate-cw"
+            src="img/Vong 07.svg"
+            alt="Vòng trong cùng"
+          />
+          <img
+            class="sau rotate-ccw"
+            src="img/Vong 06.svg"
+            alt="Vòng trong nhất"
+          />
+          <img
+            class="nam rotate-cw"
+            src="img/Vong 05.svg"
+            alt="Vòng trong nhì"
+          />
+          <img
+            class="tu rotate-ccw"
+            src="img/Vong 04.svg"
+            alt="Vòng trong tam"
+          />
+          <img class="ba rotate-cw" src="img/Vong 03.svg" alt="Vòng trong tứ" />
+          <img
+            class="hai rotate-ccw"
+            src="img/Vong 02.svg"
+            alt="Vòng trong ngũ"
+          />
+          <img
+            class="mot rotate-cw"
+            src="img/Vong 01.svg"
+            alt="Vòng trong lục"
+          />
+          <img class="nguyendu" src="img/anhnguyendu.png" alt="ảnh Nguyễn Du" />
+        </div>
+        <div class="anhtruyenkieu">
+          <img
+            src="img/screenshot_1745478436.png"
+            alt=""
+            style="width: 100%; height: auto"
+          /><br />
+          <p style="text-align: center">
+            Cuốn truyện Kiều nặng nhất thế giới(75kg) <br />
+            [Nguồn: Phạm Thị Vân Nam ]
+          </p>
+        </div>
+      </div>
+      <div
+        class="text-container"
+        style="font-family: 'Lora', 'Times New Roman', serif"
+      >
+        <p>
+          🌸 <strong>1. Giới thiệu chung</strong><br />
+          Tên đầy đủ: <em>Đoạn Trường Tân Thanh</em> (nghĩa là “Tiếng kêu mới
+          trong nỗi đau đứt ruột”)<br />
+          Tên thường gọi: <em>Truyện Kiều</em><br />
+          Tác giả: <strong>Nguyễn Du</strong> (1765–1820)<br />
+          Thể loại: <em>Truyện thơ Nôm</em><br />
+          Thể thơ: <em>Lục bát (6–8)</em><br />
+          Số câu: <strong>3.254 câu</strong>
+        </p>
+
+        <p>
+          🧾 <strong>2. Nguồn gốc & cốt truyện</strong><br />
+          Nguyễn Du dựa vào tiểu thuyết <em>Thanh Tâm Tài Nhân truyện</em> của
+          Trung Quốc, song đã sáng tạo lại hoàn toàn, biến nó thành một tác phẩm
+          mang đậm hồn Việt, nhân sinh quan và tâm thức người Việt.
+        </p>
+
+        <p>
+          🧭 <strong>3. Tóm tắt nội dung Truyện Kiều</strong><br />
+          <em>“Trăm năm trong cõi người ta...”</em><br />
+          Câu chuyện xoay quanh cuộc đời Thúy Kiều, một cô gái tài sắc vẹn toàn,
+          phải trải qua 15 năm lưu lạc vì chữ hiếu, vì số phận nghiệt ngã. Nội
+          dung được chia thành 3 phần lớn:
+        </p>
+
+        <p>
+          ➤ <strong>Phần 1: Gặp gỡ và đính ước (câu 1–588)</strong><br />
+          Thúy Kiều gặp Kim Trọng, hai người phải lòng nhau và thề nguyền gắn
+          bó.<br />
+          Tai họa ập đến: cha và em trai Kiều bị vu oan.
+        </p>
+
+        <p>
+          ➤ <strong>Phần 2: Gia biến và lưu lạc (câu 589–2.342)</strong><br />
+          Kiều bán mình chuộc cha, rơi vào tay Mã Giám Sinh – Tú Bà – rồi bị đẩy
+          vào lầu xanh.<br />
+          Trải qua nhiều biến cố, bị lừa dối, bị ép làm vợ Hồ Tôn Hiến, rồi trốn
+          thoát.<br />
+          Kiều được Từ Hải (một người anh hùng) cứu và yêu thương, nhưng Từ Hải
+          bị lừa, chết trận. Kiều bị bắt về cung và phải đàn cho Hồ Tôn Hiến
+          nghe.
+        </p>
+
+        <p>
+          ➤ <strong>Phần 3: Đoàn tụ (câu 2.343–3.254)</strong><br />
+          Kiều nhảy sông tự tử nhưng được sư Giác Duyên cứu.<br />
+          Gặp lại gia đình và Kim Trọng. Họ tái ngộ trong niềm đau và hạnh
+          phúc.<br />
+          Tuy không trở lại tình yêu lứa đôi, nhưng tình nghĩa vẫn vẹn toàn.
+        </p>
+
+        <p>🎨 <strong>4. Giá trị nghệ thuật</strong></p>
+
+        <p>
+          ✒️ <strong>Ngôn ngữ điêu luyện:</strong><br />
+          Nguyễn Du đã nâng ngôn ngữ dân tộc lên đỉnh cao với thể thơ lục bát
+          mềm mại, uyển chuyển, giàu tính biểu cảm.<br />
+          Dùng nhiều điển tích, ẩn dụ, hoán dụ, ngôn ngữ bình dân kết hợp bác
+          học.
+        </p>
+
+        <p>
+          🖋️ <strong>Nghệ thuật miêu tả:</strong><br />
+          Tả người: “Mỗi người một vẻ, mười phân vẹn mười” – tả chị em Kiều nổi
+          tiếng.<br />
+          Tả tâm lý: thể hiện nội tâm nhân vật sâu sắc, nhất là nỗi đau của
+          Kiều.
+        </p>
+
+        <p>
+          🧠 <strong>Xây dựng nhân vật:</strong><br />
+          Tâm lý nhân vật rõ nét qua lời nói – hành động – suy nghĩ, tiêu biểu
+          như:<br />
+          <strong>Kiều</strong>: tượng trưng cho người phụ nữ tài sắc nhưng bất
+          hạnh.<br />
+          <strong>Kim Trọng</strong>: thủy chung, nho nhã.<br />
+          <strong>Từ Hải</strong>: anh hùng, quyết đoán.<br />
+          <strong>Tú Bà, Mã Giám Sinh, Hồ Tôn Hiến</strong>: phản diện điển
+          hình.
+        </p>
+
+        <p>📚 <strong>5. Giá trị nội dung</strong></p>
+
+        <p>
+          💔 <strong>Phản ánh xã hội phong kiến bất công:</strong><br />
+          Con người bị vùi dập bởi chế độ phong kiến, bởi tiền bạc, danh
+          vọng.<br />
+          Phụ nữ là nạn nhân nặng nề nhất.
+        </p>
+
+        <p>
+          ❤️ <strong>Đề cao tình cảm con người:</strong><br />
+          Tình yêu chung thủy giữa Kiều – Kim Trọng.<br />
+          Chữ hiếu với cha mẹ.<br />
+          Tình nghĩa với Từ Hải và Thúy Vân.
+        </p>
+
+        <p>
+          🧘‍♂️ <strong>Tư tưởng nhân đạo sâu sắc:</strong><br />
+          Nguyễn Du khóc cho con người: “Chữ tài liền với chữ tai một vần”<br />
+          Thấu hiểu nỗi đau thân phận, cảm thông và xót xa cho số kiếp con
+          người.
+        </p>
+
+        <p>🌍 <strong>6. Ảnh hưởng của Truyện Kiều</strong></p>
+
+        <p>
+          🇻🇳 <strong>Trong văn hóa Việt:</strong><br />
+          Được xem như “quốc hồn, quốc túy”.<br />
+          Truyện Kiều đi vào đời sống: lẩy Kiều, bói Kiều, diễn Kiều, ngâm
+          Kiều.<br />
+          Được giảng dạy trong giáo dục, trở thành niềm tự hào dân tộc.
+        </p>
+
+        <p>
+          🌏 <strong>Trên thế giới:</strong><br />
+          Được dịch ra hơn 30 thứ tiếng.<br />
+          Nguyễn Du được UNESCO công nhận là Danh nhân văn hóa thế giới (1965).
+        </p>
+        <div class="btn-download">
+          <a
+            href="https://drive.google.com/uc?export=download&id=1UqWDNtBqC_ogkjLBQZ6SruIMuewycTY9"
+            download
+          >
+            <button class="download-tp">Tải xuống nội dung Truyện Kiều</button>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="all.js"></script>
+  </body>
+</html>

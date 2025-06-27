@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Chi tiết bài viết</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/plugin/relativeTime.js"></script>
+    <script>
+      dayjs.extend(dayjs_plugin_relativeTime);
+    </script>
+  </head>
+  <body class="container py-4">
+    <a href="forum.html" class="btn btn-secondary mb-3">← Quay lại diễn đàn</a>
+    <div id="postDetail" class="card p-3 mb-4"></div>
+
+    <div>
+      <h5>Bình luận</h5>
+      <input
+        id="commentInput"
+        class="form-control mb-2"
+        placeholder="Nhập bình luận..."
+      />
+      <div id="commentList"></div>
+    </div>
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
+      import {
+        getFirestore,
+        doc,
+        getDoc,
+        collection,
+        query,
+        orderBy,
+        onSnapshot,
+        addDoc,
+        serverTimestamp,
+        updateDoc,
+        getDocs,
+      } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyAKR_Urt79aX0GqcN52CEwLCJi9bF_iD98",
+        authDomain: "nguyendueducation-44987.firebaseapp.com",
+        projectId: "nguyendueducation-44987",
+        storageBucket: "nguyendueducation-44987.appspot.com",
+        messagingSenderId: "646604023441",
+        appId: "1:646604023441:web:1a1c5bf0097d52b170c130",
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+
+      const params = new URLSearchParams(location.search);
+      const postId = params.get("id");
+      const postDiv = document.getElementById("postDetail");
+      const commentList = document.getElementById("commentList");
+
+      const rawUser = JSON.parse(localStorage.getItem("currentUser") || "{}");
+      const currentUser = {
+        email: rawUser.email || "khách",
+        avatar: rawUser.avatar?.startsWith("https")
+          ? rawUser.avatar
+          : "https://i.pravatar.cc/100?u=default",
+      };
+
+      async function loadPost() {
+        if (!postId)
+          return (postDiv.innerHTML =
+            "<div class='alert alert-danger'>Không tìm thấy bài viết!</div>");
+
+        const snap = await getDoc(doc(db, "posts", postId));
+        if (!snap.exists())
+          return (postDiv.innerHTML =
+            "<div class='alert alert-danger'>Bài viết không tồn tại!</div>");
+
+        const p = snap.data();
+        postDiv.innerHTML = `
+        <div class="d-flex align-items-center mb-2">
+          <img src="${
+            p.avatar
+          }" class="rounded-circle me-2" style="width:40px;height:40px;">
+          <div>
+            <strong>${p.author}</strong><br>
+            <small class="text-muted">${
+              p.createdAt ? dayjs(p.createdAt.toDate()).fromNow() : ""
+            }</small>
+          </div>
+        </div>
+        <p>${p.content}</p>
+        ${
+          p.imageUrl
+            ? `<img src="${p.imageUrl}" class="img-fluid mb-3" style="max-height: 300px;">`
+            : ""
+        }
+      `;
+      }
+
+      document
+        .getElementById("commentInput")
+        .addEventListener("keydown", async (e) => {
+          if (e.key === "Enter") {
+            const content = e.target.value.trim();
+            if (!content) return;
+            await addDoc(collection(db, "posts", postId, "comments"), {
+              author: currentUser.email,
+              avatar: currentUser.avatar,
+              content,
+              createdAt: serverTimestamp(),
+              likes: [],
+            });
+            e.target.value = "";
+          }
+        });
+
+      function loadComments() {
+        const q = query(
+          collection(db, "posts", postId, "comments"),
+          orderBy("createdAt", "asc")
+        );
+        onSnapshot(q, (snap) => {
+          commentList.innerHTML = "";
+          snap.forEach((docSnap) => {
+            const c = docSnap.data();
+            const commentId = docSnap.id;
+            const liked = (c.likes || []).includes(currentUser.email);
+
+            const div = document.createElement("div");
+            div.className = "border rounded p-2 mb-2";
+            div.innerHTML = `
+            <div class="d-flex align-items-center mb-1">
+              <img src="${
+                c.avatar
+              }" class="rounded-circle me-2" style="width:32px;height:32px;">
+              <strong>${c.author}</strong>
+              <small class="text-muted ms-2">${
+                c.createdAt ? dayjs(c.createdAt.toDate()).fromNow() : ""
+              }</small>
+            </div>
+            <div>${c.content}</div>
+            <div class="d-flex gap-2 mt-1">
+              <button class="btn btn-sm ${
+                liked ? "btn-danger" : "btn-outline-danger"
+              }" onclick="toggleCommentLike('${commentId}')">❤️ (${
+              (c.likes || []).length
+            })</button>
+              <button class="btn btn-sm btn-outline-primary" onclick="showReplyBox('${commentId}')">↩️ Phản hồi</button>
+            </div>
+            <div id="reply-box-${commentId}" class="mt-2"></div>
+            <div id="replies-${commentId}" class="mt-2 ps-4 border-start"></div>
+          `;
+            commentList.appendChild(div);
+            loadReplies(commentId);
+          });
+        });
+      }
+
+      window.showReplyBox = function (commentId) {
+        const box = document.getElementById(`reply-box-${commentId}`);
+        box.innerHTML = `<input class="form-control" placeholder="Nhập phản hồi..." onkeydown="if(event.key==='Enter') sendReply('${commentId}', this)">`;
+      };
+
+      window.sendReply = async function (commentId, input) {
+        const text = input.value.trim();
+        if (!text) return;
+        await addDoc(
+          collection(db, "posts", postId, "comments", commentId, "replies"),
+          {
+            author: currentUser.email,
+            avatar: currentUser.avatar,
+            content: text,
+            createdAt: serverTimestamp(),
+            likes: [],
+          }
+        );
+        input.value = "";
+      };
+
+      function loadReplies(commentId) {
+        const replyDiv = document.getElementById(`replies-${commentId}`);
+        const q = query(
+          collection(db, "posts", postId, "comments", commentId, "replies"),
+          orderBy("createdAt", "asc")
+        );
+        onSnapshot(q, (snap) => {
+          replyDiv.innerHTML = "";
+          snap.forEach((docSnap) => {
+            const r = docSnap.data();
+            const replyId = docSnap.id;
+            const liked = (r.likes || []).includes(currentUser.email);
+            const div = document.createElement("div");
+            div.className = "border rounded p-2 mb-2 bg-light";
+            div.innerHTML = `
+            <div class="d-flex align-items-center mb-1">
+              <img src="${
+                r.avatar
+              }" class="rounded-circle me-2" style="width:28px;height:28px;">
+              <strong>${r.author}</strong>
+              <small class="text-muted ms-2">${
+                r.createdAt ? dayjs(r.createdAt.toDate()).fromNow() : ""
+              }</small>
+            </div>
+            <div>${r.content}</div>
+            <button class="btn btn-sm ${
+              liked ? "btn-danger" : "btn-outline-danger"
+            } mt-1" onclick="toggleReplyLike('${commentId}', '${replyId}')">❤️ (${
+              (r.likes || []).length
+            })</button>
+          `;
+            replyDiv.appendChild(div);
+          });
+        });
+      }
+
+      window.toggleCommentLike = async function (commentId) {
+        const ref = doc(db, "posts", postId, "comments", commentId);
+        const snap = await getDoc(ref);
+        const data = snap.data();
+        let likes = data.likes || [];
+        const i = likes.indexOf(currentUser.email);
+        i >= 0 ? likes.splice(i, 1) : likes.push(currentUser.email);
+        await updateDoc(ref, { likes });
+      };
+
+      window.toggleReplyLike = async function (commentId, replyId) {
+        const ref = doc(
+          db,
+          "posts",
+          postId,
+          "comments",
+          commentId,
+          "replies",
+          replyId
+        );
+        const snap = await getDoc(ref);
+        const data = snap.data();
+        let likes = data.likes || [];
+        const i = likes.indexOf(currentUser.email);
+        i >= 0 ? likes.splice(i, 1) : likes.push(currentUser.email);
+        await updateDoc(ref, { likes });
+      };
+
+      loadPost();
+      loadComments();
+    </script>
+  </body>
+</html>
