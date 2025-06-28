@@ -1,515 +1,650 @@
 <!DOCTYPE html>
 <html lang="vi">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="img/snapedit_1745406959124.jpeg" />
-  <title>Bối Cảnh Lịch Sử - Nguyễn Du</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-  <style>
-    .history-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-
-    .page-title {
-      text-align: center;
-      color: #2c3e50;
-      font-size: 3rem;
-      margin-bottom: 30px;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    .timeline {
-      position: relative;
-      margin: 40px 0;
-    }
-
-    .timeline::before {
-      content: '';
-      position: absolute;
-      left: 50%;
-      top: 0;
-      bottom: 0;
-      width: 4px;
-      background: linear-gradient(to bottom, #ff9f00, #ff6b35);
-      transform: translateX(-50%);
-    }
-
-    .timeline-period {
-      margin: 60px 0;
-      position: relative;
-    }
-
-    .period-marker {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 120px;
-      height: 120px;
-      background: linear-gradient(135deg, #ff9f00, #ff6b35);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-weight: bold;
-      font-size: 1.1rem;
-      box-shadow: 0 8px 25px rgba(255, 159, 0, 0.4);
-      z-index: 10;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .period-marker:hover {
-      transform: translateX(-50%) scale(1.1);
-      box-shadow: 0 12px 35px rgba(255, 159, 0, 0.6);
-    }
-
-    .timeline-content {
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 20px;
-      padding: 30px;
-      margin: 0 60px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-      backdrop-filter: blur(10px);
-      transition: all 0.3s ease;
-    }
-
-    .timeline-content:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-    }
-
-    .timeline-period:nth-child(odd) .timeline-content {
-      margin-right: 50%;
-      margin-left: 60px;
-      border-left: 6px solid #ff9f00;
-    }
-
-    .timeline-period:nth-child(even) .timeline-content {
-      margin-left: 50%;
-      margin-right: 60px;
-      border-right: 6px solid #ff6b35;
-    }
-
-    .period-title {
-      color: #2c3e50;
-      font-size: 1.8rem;
-      margin-bottom: 15px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .period-events {
-      margin-top: 20px;
-    }
-
-    .event-item {
-      background: rgba(255, 159, 0, 0.1);
-      padding: 15px;
-      border-radius: 10px;
-      margin: 10px 0;
-      border-left: 4px solid #ff9f00;
-      transition: all 0.3s ease;
-    }
-
-    .event-item:hover {
-      background: rgba(255, 159, 0, 0.2);
-      transform: translateX(10px);
-    }
-
-    .event-year {
-      font-weight: bold;
-      color: #ff6b35;
-      font-size: 1.1rem;
-    }
-
-    .nguyen-du-highlight {
-      background: linear-gradient(135deg, rgba(255, 159, 0, 0.2), rgba(255, 107, 53, 0.2));
-      border: 2px solid #ff9f00;
-      animation: glow 2s ease-in-out infinite alternate;
-    }
-
-    @keyframes glow {
-      from {
-        box-shadow: 0 0 10px rgba(255, 159, 0, 0.3);
-      }
-
-      to {
-        box-shadow: 0 0 20px rgba(255, 159, 0, 0.6);
-      }
-    }
-
-    .interactive-map {
-      background: rgba(255, 255, 255, 0.9);
-      border-radius: 20px;
-      padding: 30px;
-      margin: 40px 0;
-      text-align: center;
-    }
-
-    .map-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      flex-wrap: wrap;
-      margin: 20px 0;
-    }
-
-    .map-btn {
-      background: linear-gradient(135deg, #ff9f00, #ff6b35);
-      color: white;
-      border: none;
-      padding: 12px 25px;
-      border-radius: 25px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .map-btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(255, 159, 0, 0.4);
-    }
-
-    .map-btn.active {
-      background: linear-gradient(135deg, #2c3e50, #34495e);
-    }
-
-    .dynasty-info {
-      display: none;
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 15px;
-      padding: 25px;
-      margin: 20px 0;
-      border-left: 6px solid #ff9f00;
-    }
-
-    .dynasty-info.show {
-      display: block;
-      animation: fadeInUp 0.5s ease;
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .comparison-section {
-      background: rgba(255, 255, 255, 0.9);
-      border-radius: 20px;
-      padding: 30px;
-      margin: 40px 0;
-    }
-
-    .comparison-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 30px;
-      margin: 30px 0;
-    }
-
-    .comparison-item {
-      background: rgba(255, 159, 0, 0.1);
-      padding: 25px;
-      border-radius: 15px;
-      border-top: 4px solid #ff9f00;
-      transition: all 0.3s ease;
-    }
-
-    .comparison-item:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 25px rgba(255, 159, 0, 0.2);
-    }
-
-    @media (max-width: 768px) {
-      .timeline::before {
-        left: 30px;
-      }
-
-      .period-marker {
-        left: 30px;
-        width: 80px;
-        height: 80px;
-        font-size: 0.9rem;
-      }
-
-      .timeline-period:nth-child(odd) .timeline-content,
-      .timeline-period:nth-child(even) .timeline-content {
-        margin-left: 80px;
-        margin-right: 20px;
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="img/snapedit_1745406959124.jpeg" />
+    <title>Bối Cảnh Lịch Sử - Nguyễn Du</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      .history-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
       }
 
       .page-title {
-        font-size: 2rem;
+        text-align: center;
+        color: #2c3e50;
+        font-size: 3rem;
+        margin-bottom: 30px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
       }
-    }
-  </style>
-</head>
 
-<body>
-  <a href="forum.html" class="forum-button">💬</a>
-  <button class="scroll-to-top" id="scrollToTop" onclick="scrollToTop()">↑</button>
+      .timeline {
+        position: relative;
+        margin: 40px 0;
+      }
 
-  <nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="index.html">
-        <img src="img/snapedit_1745406959124.jpeg" class="avt" alt="">
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link underline-animate" href="Tieusu.html">🕑Tiểu sử</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link underline-animate" href="vinhdanhvacongnhan.html">🏛️ Vinh danh và công nhận</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link underline-animate" href="giatridisanvavanhoa.html">🏺 Giá trị di sản và văn hóa</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link underline-animate" href="congtacbaotonvaphathuy.html">🎬 Công tác bảo tồn và phát huy</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link underline-animate" href="TruyenKieu.html">💭Truyện Kiều</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link underline-animate" href="trichdannoidai.html">📜Trích dẫn nổi tiếng</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active underline-animate" href="boicanhlichsu.html">🏛️Bối cảnh lịch sử</a>
-          </li>
-        </ul>
+      .timeline::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        background: linear-gradient(to bottom, #ff9f00, #ff6b35);
+        transform: translateX(-50%);
+      }
+
+      .timeline-period {
+        margin: 60px 0;
+        position: relative;
+      }
+
+      .period-marker {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 120px;
+        height: 120px;
+        background: linear-gradient(135deg, #ff9f00, #ff6b35);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        font-size: 1.1rem;
+        box-shadow: 0 8px 25px rgba(255, 159, 0, 0.4);
+        z-index: 10;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .period-marker:hover {
+        transform: translateX(-50%) scale(1.1);
+        box-shadow: 0 12px 35px rgba(255, 159, 0, 0.6);
+      }
+
+      .timeline-content {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        padding: 30px;
+        margin: 0 60px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+      }
+
+      .timeline-content:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+      }
+
+      .timeline-period:nth-child(odd) .timeline-content {
+        margin-right: 50%;
+        margin-left: 60px;
+        border-left: 6px solid #ff9f00;
+      }
+
+      .timeline-period:nth-child(even) .timeline-content {
+        margin-left: 50%;
+        margin-right: 60px;
+        border-right: 6px solid #ff6b35;
+      }
+
+      .period-title {
+        color: #2c3e50;
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .period-events {
+        margin-top: 20px;
+      }
+
+      .event-item {
+        background: rgba(255, 159, 0, 0.1);
+        padding: 15px;
+        border-radius: 10px;
+        margin: 10px 0;
+        border-left: 4px solid #ff9f00;
+        transition: all 0.3s ease;
+      }
+
+      .event-item:hover {
+        background: rgba(255, 159, 0, 0.2);
+        transform: translateX(10px);
+      }
+
+      .event-year {
+        font-weight: bold;
+        color: #ff6b35;
+        font-size: 1.1rem;
+      }
+
+      .nguyen-du-highlight {
+        background: linear-gradient(
+          135deg,
+          rgba(255, 159, 0, 0.2),
+          rgba(255, 107, 53, 0.2)
+        );
+        border: 2px solid #ff9f00;
+        animation: glow 2s ease-in-out infinite alternate;
+      }
+
+      @keyframes glow {
+        from {
+          box-shadow: 0 0 10px rgba(255, 159, 0, 0.3);
+        }
+
+        to {
+          box-shadow: 0 0 20px rgba(255, 159, 0, 0.6);
+        }
+      }
+
+      .interactive-map {
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 20px;
+        padding: 30px;
+        margin: 40px 0;
+        text-align: center;
+      }
+
+      .map-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        flex-wrap: wrap;
+        margin: 20px 0;
+      }
+
+      .map-btn {
+        background: linear-gradient(135deg, #ff9f00, #ff6b35);
+        color: white;
+        border: none;
+        padding: 12px 25px;
+        border-radius: 25px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .map-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(255, 159, 0, 0.4);
+      }
+
+      .map-btn.active {
+        background: linear-gradient(135deg, #2c3e50, #34495e);
+      }
+
+      .dynasty-info {
+        display: none;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 15px;
+        padding: 25px;
+        margin: 20px 0;
+        border-left: 6px solid #ff9f00;
+      }
+
+      .dynasty-info.show {
+        display: block;
+        animation: fadeInUp 0.5s ease;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .comparison-section {
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 20px;
+        padding: 30px;
+        margin: 40px 0;
+      }
+
+      .comparison-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        margin: 30px 0;
+      }
+
+      .comparison-item {
+        background: rgba(255, 159, 0, 0.1);
+        padding: 25px;
+        border-radius: 15px;
+        border-top: 4px solid #ff9f00;
+        transition: all 0.3s ease;
+      }
+
+      .comparison-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(255, 159, 0, 0.2);
+      }
+
+      @media (max-width: 768px) {
+        .timeline::before {
+          left: 30px;
+        }
+
+        .period-marker {
+          left: 30px;
+          width: 80px;
+          height: 80px;
+          font-size: 0.9rem;
+        }
+
+        .timeline-period:nth-child(odd) .timeline-content,
+        .timeline-period:nth-child(even) .timeline-content {
+          margin-left: 80px;
+          margin-right: 20px;
+        }
+
+        .page-title {
+          font-size: 2rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <a href="forum.html" class="forum-button">💬</a>
+    <button class="scroll-to-top" id="scrollToTop" onclick="scrollToTop()">
+      ↑
+    </button>
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="index.html">
+          <img src="img/snapedit_1745406959124.jpeg" class="avt" alt="" />
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link underline-animate" href="Tieusu.html"
+                >🕑Tiểu sử</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link underline-animate"
+                href="vinhdanhvacongnhan.html"
+                >🏛️ Vinh danh và công nhận</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link underline-animate"
+                href="giatridisanvavanhoa.html"
+                >🏺 Giá trị di sản và văn hóa</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link underline-animate"
+                href="congtacbaotonvaphathuy.html"
+                >🎬 Công tác bảo tồn và phát huy</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link underline-animate" href="TruyenKieu.html"
+                >💭Truyện Kiều</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link underline-animate" href="trichdannoidai.html"
+                >📜Trích dẫn nổi tiếng</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link active underline-animate"
+                href="boicanhlichsu.html"
+                >🏛️Bối cảnh lịch sử</a
+              >
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
-    <div style="display: flex; align-items: center; justify-content: space-between; padding: 16px;">
-      <div style="display: flex; align-items: center">
-        <img src="https://i.pravatar.cc/100" class="avt" id="userAvatar" alt="avatar">
-        <h4 id="welcomeText" style="margin: 0"></h4>
+      <div
+        style="
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 16px;
+        "
+      >
+        <div style="display: flex; align-items: center">
+          <img
+            src="https://i.pravatar.cc/100"
+            class="avt"
+            id="userAvatar"
+            alt="avatar"
+          />
+          <h4 id="welcomeText" style="margin: 0"></h4>
+        </div>
+        <button class="logout-btn" onclick="logout()">Đăng xuất</button>
       </div>
-      <button class="logout-btn" onclick="logout()">Đăng xuất</button>
-    </div>
-  </nav>
+    </nav>
 
-  <div class="history-container">
-    <h1 class="page-title">🏛️ Bối Cảnh Lịch Sử Thời Nguyễn Du</h1>
+    <div class="history-container">
+      <h1 class="page-title">🏛️ Bối Cảnh Lịch Sử Thời Nguyễn Du</h1>
 
-    <div class="interactive-map">
-      <h3>🗺️ Khám phá các triều đại</h3>
-      <p>Nhấn vào các nút bên dưới để tìm hiểu thêm về từng triều đại trong thời kỳ Nguyễn Du sống</p>
-      <div class="map-buttons">
-        <button class="map-btn" onclick="showDynastyInfo('le')">Triều Lê</button>
-        <button class="map-btn" onclick="showDynastyInfo('tayson')">Tây Sơn</button>
-        <button class="map-btn" onclick="showDynastyInfo('nguyen')">Triều Nguyễn</button>
-      </div>
-
-      <div id="dynasty-le" class="dynasty-info">
-        <h4>🏯 Triều Lê Trung Hưng (1533-1788)</h4>
-        <p><strong>Đặc điểm:</strong> Triều đại phong kiến với hệ thống quan lại phát triển</p>
-        <p><strong>Ảnh hưởng đến Nguyễn Du:</strong> Ông sinh ra trong thời kỳ cuối của triều Lê, được giáo dục theo nền
-          văn hóa truyền thống</p>
-        <p><strong>Sự kiện quan trọng:</strong> Cuộc khởi nghĩa Tây Sơn lật đổ triều Lê năm 1788</p>
-      </div>
-
-      <div id="dynasty-tayson" class="dynasty-info">
-        <h4>⚔️ Triều Tây Sơn (1778-1802)</h4>
-        <p><strong>Đặc điểm:</strong> Triều đại nông dân, có nhiều cải cách xã hội tiến bộ</p>
-        <p><strong>Ảnh hưởng đến Nguyễn Du:</strong> Ông phục vụ triều Tây Sơn nhưng luôn trong tâm trạng "tôi cầu quốc,
-          quốc diệt"</p>
-        <p><strong>Sự kiện quan trọng:</strong> Quang Trung Nguyễn Huệ đánh tan quân Thanh năm 1789</p>
-      </div>
-
-      <div id="dynasty-nguyen" class="dynasty-info">
-        <h4>👑 Triều Nguyễn (1802-1945)</h4>
-        <p><strong>Đặc điểm:</strong> Triều đại phong kiến cuối cùng của Việt Nam</p>
-        <p><strong>Ảnh hưởng đến Nguyễn Du:</strong> Ông phải phục vụ triều Nguyễn với tâm trạng mâu thuẫn, không vui
+      <div class="interactive-map">
+        <h3>🗺️ Khám phá các triều đại</h3>
+        <p>
+          Nhấn vào các nút bên dưới để tìm hiểu thêm về từng triều đại trong
+          thời kỳ Nguyễn Du sống
         </p>
-        <p><strong>Sự kiện quan trọng:</strong> Gia Long thống nhất đất nước năm 1802</p>
-      </div>
-    </div>
+        <div class="map-buttons">
+          <button class="map-btn" onclick="showDynastyInfo('le')">
+            Triều Lê
+          </button>
+          <button class="map-btn" onclick="showDynastyInfo('tayson')">
+            Tây Sơn
+          </button>
+          <button class="map-btn" onclick="showDynastyInfo('nguyen')">
+            Triều Nguyễn
+          </button>
+        </div>
 
-    <div class="timeline">
-      <div class="timeline-period">
-        <div class="period-marker">1765-1785<br>Thời thơ ấu & Thanh niên</div>
-        <div class="timeline-content">
-          <h3 class="period-title">🌱 Giai đoạn hình thành (1765-1785)</h3>
-          <div class="period-events">
-            <div class="event-item nguyen-du-highlight">
-              <div class="event-year">1765</div>
-              <div>Nguyễn Du sinh ra tại Tiên Điền, Hà Tĩnh trong gia đình quan lại triều Lê</div>
+        <div id="dynasty-le" class="dynasty-info">
+          <h4>🏯 Triều Lê Trung Hưng (1533-1788)</h4>
+          <p>
+            <strong>Đặc điểm:</strong> Triều đại phong kiến với hệ thống quan
+            lại phát triển
+          </p>
+          <p>
+            <strong>Ảnh hưởng đến Nguyễn Du:</strong> Ông sinh ra trong thời kỳ
+            cuối của triều Lê, được giáo dục theo nền văn hóa truyền thống
+          </p>
+          <p>
+            <strong>Sự kiện quan trọng:</strong> Cuộc khởi nghĩa Tây Sơn lật đổ
+            triều Lê năm 1788
+          </p>
+        </div>
+
+        <div id="dynasty-tayson" class="dynasty-info">
+          <h4>⚔️ Triều Tây Sơn (1778-1802)</h4>
+          <p>
+            <strong>Đặc điểm:</strong> Triều đại nông dân, có nhiều cải cách xã
+            hội tiến bộ
+          </p>
+          <p>
+            <strong>Ảnh hưởng đến Nguyễn Du:</strong> Ông phục vụ triều Tây Sơn
+            nhưng luôn trong tâm trạng "tôi cầu quốc, quốc diệt"
+          </p>
+          <p>
+            <strong>Sự kiện quan trọng:</strong> Quang Trung Nguyễn Huệ đánh tan
+            quân Thanh năm 1789
+          </p>
+        </div>
+
+        <div id="dynasty-nguyen" class="dynasty-info">
+          <h4>👑 Triều Nguyễn (1802-1945)</h4>
+          <p>
+            <strong>Đặc điểm:</strong> Triều đại phong kiến cuối cùng của Việt
+            Nam
+          </p>
+          <p>
+            <strong>Ảnh hưởng đến Nguyễn Du:</strong> Ông phải phục vụ triều
+            Nguyễn với tâm trạng mâu thuẫn, không vui
+          </p>
+          <p>
+            <strong>Sự kiện quan trọng:</strong> Gia Long thống nhất đất nước
+            năm 1802
+          </p>
+        </div>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline-period">
+          <div class="period-marker">
+            1765-1785<br />Thời thơ ấu & Thanh niên
+          </div>
+          <div class="timeline-content">
+            <h3 class="period-title">🌱 Giai đoạn hình thành (1765-1785)</h3>
+            <div class="period-events">
+              <div class="event-item nguyen-du-highlight">
+                <div class="event-year">1765</div>
+                <div>
+                  Nguyễn Du sinh ra tại Tiên Điền, Hà Tĩnh trong gia đình quan
+                  lại triều Lê
+                </div>
+              </div>
+              <div class="event-item">
+                <div class="event-year">1771</div>
+                <div>
+                  Khởi nghĩa Tây Sơn bùng nổ ở Quy Nhon, bắt đầu cuộc cách mạng
+                  nông dân
+                </div>
+              </div>
+              <div class="event-item">
+                <div class="event-year">1778</div>
+                <div>
+                  Tây Sơn chiếm được Phú Xuân (Huế), lật đổ chúa Nguyễn ở phương
+                  Nam
+                </div>
+              </div>
+              <div class="event-item nguyen-du-highlight">
+                <div class="event-year">1785</div>
+                <div>
+                  Nguyễn Du đỗ thi Hương Cống, bắt đầu sự nghiệp quan lộ
+                </div>
+              </div>
             </div>
-            <div class="event-item">
-              <div class="event-year">1771</div>
-              <div>Khởi nghĩa Tây Sơn bùng nổ ở Quy Nhon, bắt đầu cuộc cách mạng nông dân</div>
+          </div>
+        </div>
+
+        <div class="timeline-period">
+          <div class="period-marker">1785-1802<br />Thời loạn lạc</div>
+          <div class="timeline-content">
+            <h3 class="period-title">⚔️ Thời kỳ loạn lạc (1785-1802)</h3>
+            <div class="period-events">
+              <div class="event-item">
+                <div class="event-year">1788</div>
+                <div>Quang Trung xưng đế, thành lập nhà Tây Sơn chính thức</div>
+              </div>
+              <div class="event-item">
+                <div class="event-year">1789</div>
+                <div>
+                  Đại thắng Ngọc Hồi - Đống Đa, đánh tan 20 vạn quân Thanh
+                </div>
+              </div>
+              <div class="event-item nguyen-du-highlight">
+                <div class="event-year">1790-1802</div>
+                <div>
+                  Nguyễn Du phục vụ triều Tây Sơn, nhưng tâm trạng mâu thuẫn
+                </div>
+              </div>
+              <div class="event-item">
+                <div class="event-year">1792</div>
+                <div>Quang Trung qua đời, nhà Tây Sơn bắt đầu suy yếu</div>
+              </div>
+              <div class="event-item">
+                <div class="event-year">1802</div>
+                <div>
+                  Nguyễn Ánh lên ngôi, lấy niên hiệu Gia Long, thành lập triều
+                  Nguyễn
+                </div>
+              </div>
             </div>
-            <div class="event-item">
-              <div class="event-year">1778</div>
-              <div>Tây Sơn chiếm được Phú Xuân (Huế), lật đổ chúa Nguyễn ở phương Nam</div>
-            </div>
-            <div class="event-item nguyen-du-highlight">
-              <div class="event-year">1785</div>
-              <div>Nguyễn Du đỗ thi Hương Cống, bắt đầu sự nghiệp quan lộ</div>
+          </div>
+        </div>
+
+        <div class="timeline-period">
+          <div class="period-marker">1802-1820<br />Thời sáng tác</div>
+          <div class="timeline-content">
+            <h3 class="period-title">✍️ Thời kỳ sáng tác (1802-1820)</h3>
+            <div class="period-events">
+              <div class="event-item nguyen-du-highlight">
+                <div class="event-year">1802-1806</div>
+                <div>
+                  Nguyễn Du miễn cưỡng phục vụ triều Nguyễn, tâm trạng "tôi cầu
+                  quốc, quốc diệt"
+                </div>
+              </div>
+              <div class="event-item">
+                <div class="event-year">1807</div>
+                <div>
+                  Triều Nguyễn ban hành bộ luật Gia Long, củng cố chế độ phong
+                  kiến
+                </div>
+              </div>
+              <div class="event-item nguyen-du-highlight">
+                <div class="event-year">1813-1815</div>
+                <div>
+                  Nguyễn Du sáng tác "Đoạn trường tân thanh" (Truyện Kiều)
+                </div>
+              </div>
+              <div class="event-item">
+                <div class="event-year">1815</div>
+                <div>
+                  Triều Nguyễn đóng cửa với phương Tây, thực hiện chính sách bế
+                  quan tỏa cảng
+                </div>
+              </div>
+              <div class="event-item nguyen-du-highlight">
+                <div class="event-year">1820</div>
+                <div>
+                  Nguyễn Du qua đời tại Huế khi chuẩn bị sang sứ Trung Quốc
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="timeline-period">
-        <div class="period-marker">1785-1802<br>Thời loạn lạc</div>
-        <div class="timeline-content">
-          <h3 class="period-title">⚔️ Thời kỳ loạn lạc (1785-1802)</h3>
-          <div class="period-events">
-            <div class="event-item">
-              <div class="event-year">1788</div>
-              <div>Quang Trung xưng đế, thành lập nhà Tây Sơn chính thức</div>
-            </div>
-            <div class="event-item">
-              <div class="event-year">1789</div>
-              <div>Đại thắng Ngọc Hồi - Đống Đa, đánh tan 20 vạn quân Thanh</div>
-            </div>
-            <div class="event-item nguyen-du-highlight">
-              <div class="event-year">1790-1802</div>
-              <div>Nguyễn Du phục vụ triều Tây Sơn, nhưng tâm trạng mâu thuẫn</div>
-            </div>
-            <div class="event-item">
-              <div class="event-year">1792</div>
-              <div>Quang Trung qua đời, nhà Tây Sơn bắt đầu suy yếu</div>
-            </div>
-            <div class="event-item">
-              <div class="event-year">1802</div>
-              <div>Nguyễn Ánh lên ngôi, lấy niên hiệu Gia Long, thành lập triều Nguyễn</div>
-            </div>
+      <div class="comparison-section">
+        <h3 style="text-align: center; color: #2c3e50; margin-bottom: 30px">
+          📊 So sánh các triều đại
+        </h3>
+        <div class="comparison-grid">
+          <div class="comparison-item">
+            <h4>🏯 Triều Lê Trung Hưng</h4>
+            <p><strong>Thời gian:</strong> 1533-1788</p>
+            <p>
+              <strong>Đặc điểm:</strong> Phong kiến truyền thống, văn hóa Nho
+              giáo phát triển
+            </p>
+            <p>
+              <strong>Ảnh hưởng:</strong> Nguyễn Du được giáo dục theo nền văn
+              hóa này
+            </p>
           </div>
-        </div>
-      </div>
 
-      <div class="timeline-period">
-        <div class="period-marker">1802-1820<br>Thời sáng tác</div>
-        <div class="timeline-content">
-          <h3 class="period-title">✍️ Thời kỳ sáng tác (1802-1820)</h3>
-          <div class="period-events">
-            <div class="event-item nguyen-du-highlight">
-              <div class="event-year">1802-1806</div>
-              <div>Nguyễn Du miễn cưỡng phục vụ triều Nguyễn, tâm trạng "tôi cầu quốc, quốc diệt"</div>
-            </div>
-            <div class="event-item">
-              <div class="event-year">1807</div>
-              <div>Triều Nguyễn ban hành bộ luật Gia Long, củng cố chế độ phong kiến</div>
-            </div>
-            <div class="event-item nguyen-du-highlight">
-              <div class="event-year">1813-1815</div>
-              <div>Nguyễn Du sáng tác "Đoạn trường tân thanh" (Truyện Kiều)</div>
-            </div>
-            <div class="event-item">
-              <div class="event-year">1815</div>
-              <div>Triều Nguyễn đóng cửa với phương Tây, thực hiện chính sách bế quan tỏa cảng</div>
-            </div>
-            <div class="event-item nguyen-du-highlight">
-              <div class="event-year">1820</div>
-              <div>Nguyễn Du qua đời tại Huế khi chuẩn bị sang sứ Trung Quốc</div>
-            </div>
+          <div class="comparison-item">
+            <h4>⚔️ Triều Tây Sơn</h4>
+            <p><strong>Thời gian:</strong> 1778-1802</p>
+            <p>
+              <strong>Đặc điểm:</strong> Cách mạng nông dân, cải cách xã hội
+            </p>
+            <p>
+              <strong>Ảnh hưởng:</strong> Nguyễn Du phục vụ nhưng mâu thuẫn tâm
+              lý
+            </p>
+          </div>
+
+          <div class="comparison-item">
+            <h4>👑 Triều Nguyễn</h4>
+            <p><strong>Thời gian:</strong> 1802-1945</p>
+            <p><strong>Đặc điểm:</strong> Phong kiến bảo thủ, tập quyền</p>
+            <p>
+              <strong>Ảnh hưởng:</strong> Nguyễn Du sáng tác Truyện Kiều thời kỳ
+              này
+            </p>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="comparison-section">
-      <h3 style="text-align: center; color: #2c3e50; margin-bottom: 30px;">📊 So sánh các triều đại</h3>
-      <div class="comparison-grid">
-        <div class="comparison-item">
-          <h4>🏯 Triều Lê Trung Hưng</h4>
-          <p><strong>Thời gian:</strong> 1533-1788</p>
-          <p><strong>Đặc điểm:</strong> Phong kiến truyền thống, văn hóa Nho giáo phát triển</p>
-          <p><strong>Ảnh hưởng:</strong> Nguyễn Du được giáo dục theo nền văn hóa này</p>
-        </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      function showDynastyInfo(dynasty) {
+        // Hide all dynasty info
+        const allInfo = document.getElementsByClassName("dynasty-info");
+        for (let info of allInfo) {
+          info.classList.remove("show");
+        }
 
-        <div class="comparison-item">
-          <h4>⚔️ Triều Tây Sơn</h4>
-          <p><strong>Thời gian:</strong> 1778-1802</p>
-          <p><strong>Đặc điểm:</strong> Cách mạng nông dân, cải cách xã hội</p>
-          <p><strong>Ảnh hưởng:</strong> Nguyễn Du phục vụ nhưng mâu thuẫn tâm lý</p>
-        </div>
+        // Remove active class from all buttons
+        const allButtons = document.getElementsByClassName("map-btn");
+        for (let btn of allButtons) {
+          btn.classList.remove("active");
+        }
 
-        <div class="comparison-item">
-          <h4>👑 Triều Nguyễn</h4>
-          <p><strong>Thời gian:</strong> 1802-1945</p>
-          <p><strong>Đặc điểm:</strong> Phong kiến bảo thủ, tập quyền</p>
-          <p><strong>Ảnh hưởng:</strong> Nguyễn Du sáng tác Truyện Kiều thời kỳ này</p>
-        </div>
-      </div>
-    </div>
-  </div>
+        // Show selected dynasty info
+        document.getElementById(`dynasty-${dynasty}`).classList.add("show");
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    function showDynastyInfo(dynasty) {
-      // Hide all dynasty info
-      const allInfo = document.getElementsByClassName('dynasty-info');
-      for (let info of allInfo) {
-        info.classList.remove('show');
+        // Add active class to clicked button
+        event.target.classList.add("active");
       }
 
-      // Remove active class from all buttons
-      const allButtons = document.getElementsByClassName('map-btn');
-      for (let btn of allButtons) {
-        btn.classList.remove('active');
+      // Scroll to top functionality
+      window.onscroll = function () {
+        const scrollBtn = document.getElementById("scrollToTop");
+        if (
+          document.body.scrollTop > 300 ||
+          document.documentElement.scrollTop > 300
+        ) {
+          scrollBtn.classList.add("show");
+        } else {
+          scrollBtn.classList.remove("show");
+        }
+      };
+
+      function scrollToTop() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
       }
 
-      // Show selected dynasty info
-      document.getElementById(`dynasty-${dynasty}`).classList.add('show');
+      // Add intersection observer for timeline animations
+      document.addEventListener("DOMContentLoaded", function () {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.style.animation = "fadeInUp 0.8s ease forwards";
+              }
+            });
+          },
+          { threshold: 0.1 }
+        );
 
-      // Add active class to clicked button
-      event.target.classList.add('active');
-    }
-
-    // Scroll to top functionality
-    window.onscroll = function () {
-      const scrollBtn = document.getElementById('scrollToTop');
-      if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-        scrollBtn.classList.add('show');
-      } else {
-        scrollBtn.classList.remove('show');
-      }
-    };
-
-    function scrollToTop() {
-      document.body.scrollTop = 0;
-      document.documentElement.scrollTop = 0;
-    }
-
-    // Add intersection observer for timeline animations
-    document.addEventListener('DOMContentLoaded', function () {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.style.animation = 'fadeInUp 0.8s ease forwards';
-          }
+        const timelineItems = document.querySelectorAll(".timeline-content");
+        timelineItems.forEach((item) => {
+          item.style.opacity = "0";
+          item.style.transform = "translateY(50px)";
+          observer.observe(item);
         });
-      }, { threshold: 0.1 });
-
-      const timelineItems = document.querySelectorAll('.timeline-content');
-      timelineItems.forEach(item => {
-        item.style.opacity = '0';
-        item.style.transform = 'translateY(50px)';
-        observer.observe(item);
       });
-    });
-  </script><script type="module" src="all.js"></script>
-</body>
-
+    </script>
+    <script type="module" src="all.js"></script>
+  </body>
 </html>

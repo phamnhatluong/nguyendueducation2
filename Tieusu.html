@@ -1,424 +1,520 @@
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nguyễn Du</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" /><link rel="icon" href="img/snapedit_1745406959124.jpeg" />
-  <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
-  <style>
-    .drum-container {
-      border: none !important;
-      height: 572px;
-    }
-
-    .nguyendu {
-      display: flex;
-      position: absolute !important;
-      width: auto !important;
-      height: 70% !important;
-      bottom: -2px;
-      left: -56px;
-      justify-content: center;
-      align-items: center;
-      z-index: 10;
-    }
-
-    .forum-button {
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
-      width: 60px;
-      height: 60px;
-      background-color: #ff9f00;
-      color: white;
-      border-radius: 50%;
-      font-size: 24px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-decoration: none;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-      z-index: 1000;
-      transition: transform 0.2s ease;
-    }
-
-    .forum-button:hover {
-      transform: scale(1.1);
-    }
-
-    /* Styles for biography page */
-    .biography-section {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-
-    .section-title {
-      text-align: center;
-      color: #2c3e50;
-      font-size: 2.5rem;
-      margin-bottom: 40px;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    .timeline-container {
-      position: relative;
-      margin: 40px 0;
-    }
-
-    .timeline-container::before {
-      content: '';
-      position: absolute;
-      left: 50%;
-      top: 0;
-      bottom: 0;
-      width: 4px;
-      background: linear-gradient(to bottom, #ff9f00, #ff6b35);
-      transform: translateX(-50%);
-    }
-
-    .timeline-item {
-      display: flex;
-      margin-bottom: 40px;
-      position: relative;
-    }
-
-    .timeline-item:nth-child(odd) {
-      flex-direction: row;
-    }
-
-    .timeline-item:nth-child(even) {
-      flex-direction: row-reverse;
-    }
-
-    .timeline-year {
-      background: linear-gradient(135deg, #ff9f00, #ff6b35);
-      color: white;
-      padding: 10px 20px;
-      border-radius: 50%;
-      font-weight: bold;
-      font-size: 1.2rem;
-      width: 100px;
-      height: 100px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      z-index: 2;
-      box-shadow: 0 4px 15px rgba(255, 159, 0, 0.3);
-    }
-
-    .timeline-content {
-      background: white;
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-      margin: 0 30px;
-      flex: 1;
-      border-left: 4px solid #ff9f00;
-    }
-
-    .timeline-content h4 {
-      color: #2c3e50;
-      margin-bottom: 10px;
-      font-size: 1.3rem;
-    }
-
-    .timeline-content p {
-      color: #555;
-      line-height: 1.6;
-    }
-
-    .personal-info,
-    .achievements,
-    .legacy {
-      background: rgba(255, 255, 255, 0.9);
-      padding: 30px;
-      border-radius: 20px;
-      margin: 40px 0;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    }
-
-    .personal-info h3,
-    .achievements h3,
-    .legacy h3 {
-      color: #2c3e50;
-      font-size: 1.8rem;
-      margin-bottom: 20px;
-      text-align: center;
-    }
-
-    .info-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
-    }
-
-    .info-item {
-      background: #f8f9fa;
-      padding: 15px;
-      border-radius: 10px;
-      border-left: 4px solid #ff9f00;
-    }
-
-    .achievement-list {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    .achievement-item {
-      display: flex;
-      align-items: center;
-      background: #f8f9fa;
-      padding: 20px;
-      border-radius: 15px;
-      transition: transform 0.3s ease;
-    }
-
-    .achievement-item:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 5px 15px rgba(255, 159, 0, 0.2);
-    }
-
-    .achievement-icon {
-      font-size: 2rem;
-      margin-right: 20px;
-    }
-
-    .legacy p {
-      font-size: 1.1rem;
-      line-height: 1.8;
-      color: #555;
-      text-align: justify;
-    }
-
-    @media (max-width: 768px) {
-      .timeline-container::before {
-        left: 50px;
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nguyễn Du</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://getbootstrap.com/docs/5.3/assets/css/docs.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="img/snapedit_1745406959124.jpeg" />
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+    ></script>
+    <style>
+      .drum-container {
+        border: none !important;
+        height: 572px;
       }
 
-      .timeline-item {
-        flex-direction: column !important;
-        margin-left: 70px;
+      .nguyendu {
+        display: flex;
+        position: absolute !important;
+        width: auto !important;
+        height: 70% !important;
+        bottom: -2px;
+        left: -56px;
+        justify-content: center;
+        align-items: center;
+        z-index: 10;
       }
 
-      .timeline-year {
-        width: 80px;
-        height: 80px;
-        position: absolute;
-        left: -90px;
+      .forum-button {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        width: 60px;
+        height: 60px;
+        background-color: #ff9f00;
+        color: white;
+        border-radius: 50%;
+        font-size: 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        z-index: 1000;
+        transition: transform 0.2s ease;
       }
 
-      .timeline-content {
-        margin: 0;
+      .forum-button:hover {
+        transform: scale(1.1);
+      }
+
+      /* Styles for biography page */
+      .biography-section {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
       }
 
       .section-title {
-        font-size: 2rem;
+        text-align: center;
+        color: #2c3e50;
+        font-size: 2.5rem;
+        margin-bottom: 40px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
       }
-    }
-  </style>
-</head>
 
-<body>
-  <a href="forum.html" class="forum-button"> 💬 </a>
+      .timeline-container {
+        position: relative;
+        margin: 40px 0;
+      }
 
-  
-  <nav class="navbar navbar-expand-lg bg-body-tertiary" class="navbar" style="background-color: #ff9f00">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="index.html"><img src="img/snapedit_1745406959124.jpeg" class="avt" alt="" /></a>
+      .timeline-container::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        background: linear-gradient(to bottom, #ff9f00, #ff6b35);
+        transform: translateX(-50%);
+      }
 
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active underline-animate" aria-current="page" href="Tieusu.html">🕑Tiểu sử</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link underline-animate" href="vinhdanhvacongnhan.html">🏛️ Vinh danh và công nhận</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link underline-animate" href="giatridisanvavanhoa.html">🏺 Giá trị di sản và văn hóa</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link underline-animate" href="congtacbaotonvaphathuy.html">🎬 Công tác bảo tồn và phát huy</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link underline-animate" href="TruyenKieu.html">💭Truyện Kiều</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link underline-animate" href="trichdannoidai.html">📜Trích dẫn nổi tiếng</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link underline-animate" href="boicanhlichsu.html">🏛️Bối cảnh lịch sử</a>
-          </li>
-          <li class="nav-item">
-            <a href="2005VDLA038 .pdf" download>
-              <button class="logout-btn">
-                Tải thông tin chi tiết tại đây
-              </button>
-            </a>
-          </li>
-        </ul>
+      .timeline-item {
+        display: flex;
+        margin-bottom: 40px;
+        position: relative;
+      }
+
+      .timeline-item:nth-child(odd) {
+        flex-direction: row;
+      }
+
+      .timeline-item:nth-child(even) {
+        flex-direction: row-reverse;
+      }
+
+      .timeline-year {
+        background: linear-gradient(135deg, #ff9f00, #ff6b35);
+        color: white;
+        padding: 10px 20px;
+        border-radius: 50%;
+        font-weight: bold;
+        font-size: 1.2rem;
+        width: 100px;
+        height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        z-index: 2;
+        box-shadow: 0 4px 15px rgba(255, 159, 0, 0.3);
+      }
+
+      .timeline-content {
+        background: white;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        margin: 0 30px;
+        flex: 1;
+        border-left: 4px solid #ff9f00;
+      }
+
+      .timeline-content h4 {
+        color: #2c3e50;
+        margin-bottom: 10px;
+        font-size: 1.3rem;
+      }
+
+      .timeline-content p {
+        color: #555;
+        line-height: 1.6;
+      }
+
+      .personal-info,
+      .achievements,
+      .legacy {
+        background: rgba(255, 255, 255, 0.9);
+        padding: 30px;
+        border-radius: 20px;
+        margin: 40px 0;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      }
+
+      .personal-info h3,
+      .achievements h3,
+      .legacy h3 {
+        color: #2c3e50;
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      .info-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+      }
+
+      .info-item {
+        background: #f8f9fa;
+        padding: 15px;
+        border-radius: 10px;
+        border-left: 4px solid #ff9f00;
+      }
+
+      .achievement-list {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .achievement-item {
+        display: flex;
+        align-items: center;
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 15px;
+        transition: transform 0.3s ease;
+      }
+
+      .achievement-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(255, 159, 0, 0.2);
+      }
+
+      .achievement-icon {
+        font-size: 2rem;
+        margin-right: 20px;
+      }
+
+      .legacy p {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: #555;
+        text-align: justify;
+      }
+
+      @media (max-width: 768px) {
+        .timeline-container::before {
+          left: 50px;
+        }
+
+        .timeline-item {
+          flex-direction: column !important;
+          margin-left: 70px;
+        }
+
+        .timeline-year {
+          width: 80px;
+          height: 80px;
+          position: absolute;
+          left: -90px;
+        }
+
+        .timeline-content {
+          margin: 0;
+        }
+
+        .section-title {
+          font-size: 2rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <a href="forum.html" class="forum-button"> 💬 </a>
+
+    <nav
+      class="navbar navbar-expand-lg bg-body-tertiary"
+      class="navbar"
+      style="background-color: #ff9f00"
+    >
+      <div class="container-fluid">
+        <a class="navbar-brand" href="index.html"
+          ><img src="img/snapedit_1745406959124.jpeg" class="avt" alt=""
+        /></a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a
+                class="nav-link active underline-animate"
+                aria-current="page"
+                href="Tieusu.html"
+                >🕑Tiểu sử</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link underline-animate"
+                href="vinhdanhvacongnhan.html"
+                >🏛️ Vinh danh và công nhận</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link underline-animate"
+                href="giatridisanvavanhoa.html"
+                >🏺 Giá trị di sản và văn hóa</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link underline-animate"
+                href="congtacbaotonvaphathuy.html"
+                >🎬 Công tác bảo tồn và phát huy</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link underline-animate" href="TruyenKieu.html"
+                >💭Truyện Kiều</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link underline-animate" href="trichdannoidai.html"
+                >📜Trích dẫn nổi tiếng</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link underline-animate" href="boicanhlichsu.html"
+                >🏛️Bối cảnh lịch sử</a
+              >
+            </li>
+            <li class="nav-item">
+              <a href="2005VDLA038 .pdf" download>
+                <button class="logout-btn">
+                  Tải thông tin chi tiết tại đây
+                </button>
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
 
-    <div style="
+      <div
+        style="
           display: flex;
           align-items: center;
           justify-content: space-between;
           padding: 16px;
-        ">
-      <div style="display: flex; align-items: center">
-        <img src="https://i.pravatar.cc/100" class="avt" id="userAvatar" alt="avatar" />
-        <input type="file" id="avatarInput" accept="image/*" style="display: none" />
+        "
+      >
+        <div style="display: flex; align-items: center">
+          <img
+            src="https://i.pravatar.cc/100"
+            class="avt"
+            id="userAvatar"
+            alt="avatar"
+          />
+          <input
+            type="file"
+            id="avatarInput"
+            accept="image/*"
+            style="display: none"
+          />
 
-        <h4 id="welcomeText" style="margin: 0"></h4>
-      </div>
-      <button class="logout-btn" onclick="logout()">Đăng xuất</button>
-    </div>
-  </nav>
-  <div class="content">
-    <div class="image-container">
-      <div class="drum-container">
-        <img class="chin rotate-cw" src="img/Vong 09.svg" alt="Vòng ngoài cùng" />
-        <img class="tam rotate-ccw" src="img/Vong 08.svg" alt="Vòng giữa" />
-        <img class="bay rotate-cw" src="img/Vong 07.svg" alt="Vòng trong cùng" />
-        <img class="sau rotate-ccw" src="img/Vong 06.svg" alt="Vòng trong nhất" />
-        <img class="nam rotate-cw" src="img/Vong 05.svg" alt="Vòng trong nhì" />
-        <img class="tu rotate-ccw" src="img/Vong 04.svg" alt="Vòng trong tam" />
-        <img class="ba rotate-cw" src="img/Vong 03.svg" alt="Vòng trong tứ" />
-        <img class="hai rotate-ccw" src="img/Vong 02.svg" alt="Vòng trong ngũ" />
-        <img class="mot rotate-cw" src="img/Vong 01.svg" alt="Vòng trong lục" />
-        <img class="nguyendu" src="img/anhnguyendu.png" alt="ảnh Nguyễn Du" />
-      </div>
-      <div class="anhtruyenkieu">
-        <img src="img/screenshot_1745479404.png" alt="" style="width: 100%; height: auto" /><br />
-        <p style="text-align: center">
-          Cảnh vợ chồng Nguyễn Du trong “Đại thi hào Nguyễn Du”
-        </p>
-      </div>
-    </div>
-    <div class="text-container">
-      <div class="biography-section">
-        <h2 class="section-title">🏛️ Tiểu sử Đại thi hào Nguyễn Du</h2>
-
-        <div class="timeline-container">
-          <div class="timeline-item">
-            <div class="timeline-year">1765</div>
-            <div class="timeline-content">
-              <h4>Khai sinh</h4>
-              <p>Sinh tại làng Tiên Điền, huyện Nghi Xuân, Hà Tĩnh. Tên thật là <strong>Nguyễn Thành Tổ</strong>, tự
-                <strong>Tố Như</strong>, hiệu <strong>Thanh Hiên</strong>.</p>
-            </div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-year">1785</div>
-            <div class="timeline-content">
-              <h4>Đỗ Hương Cống</h4>
-              <p>Đỗ thi Hương Cống, được cử làm Huyện chính. Bắt đầu con đường quan lộ.</p>
-            </div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-year">1802</div>
-            <div class="timeline-content">
-              <h4>Chuyển sang triều Nguyễn</h4>
-              <p>Sau khi triều Tây Sơn sụp đổ, ông phải phục vụ triều Nguyễn với tâm trạng "tôi cầu quốc, quốc diệt".
-              </p>
-            </div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-year">1813-1815</div>
-            <div class="timeline-content">
-              <h4>Sáng tác Truyện Kiều</h4>
-              <p>Hoàn thành tác phẩm bất hủ <strong>"Đoạn trường tân thanh"</strong> (Truyện Kiều) - kiệt tác văn học
-                Việt Nam.</p>
-            </div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-year">1820</div>
-            <div class="timeline-content">
-              <h4>Qua đời</h4>
-              <p>Mất tại Huế khi chuẩn bị sang sứ Trung Quốc, hưởng thọ 56 tuổi.</p>
-            </div>
-          </div>
+          <h4 id="welcomeText" style="margin: 0"></h4>
         </div>
-
-        <div class="personal-info">
-          <h3>📖 Thông tin cá nhân</h3>
-          <div class="info-grid">
-            <div class="info-item">
-              <strong>Tên thật:</strong> Nguyễn Thành Tổ
-            </div>
-            <div class="info-item">
-              <strong>Tự:</strong> Tố Như
-            </div>
-            <div class="info-item">
-              <strong>Hiệu:</strong> Thanh Hiên
-            </div>
-            <div class="info-item">
-              <strong>Quê quán:</strong> Tiên Điền, Nghi Xuân, Hà Tĩnh
-            </div>
-            <div class="info-item">
-              <strong>Cha:</strong> Nguyễn Nghiễm (Xuân Nhạc Công)
-            </div>
-            <div class="info-item">
-              <strong>Tôn giáo:</strong> Phật giáo
-            </div>
-          </div>
+        <button class="logout-btn" onclick="logout()">Đăng xuất</button>
+      </div>
+    </nav>
+    <div class="content">
+      <div class="image-container">
+        <div class="drum-container">
+          <img
+            class="chin rotate-cw"
+            src="img/Vong 09.svg"
+            alt="Vòng ngoài cùng"
+          />
+          <img class="tam rotate-ccw" src="img/Vong 08.svg" alt="Vòng giữa" />
+          <img
+            class="bay rotate-cw"
+            src="img/Vong 07.svg"
+            alt="Vòng trong cùng"
+          />
+          <img
+            class="sau rotate-ccw"
+            src="img/Vong 06.svg"
+            alt="Vòng trong nhất"
+          />
+          <img
+            class="nam rotate-cw"
+            src="img/Vong 05.svg"
+            alt="Vòng trong nhì"
+          />
+          <img
+            class="tu rotate-ccw"
+            src="img/Vong 04.svg"
+            alt="Vòng trong tam"
+          />
+          <img class="ba rotate-cw" src="img/Vong 03.svg" alt="Vòng trong tứ" />
+          <img
+            class="hai rotate-ccw"
+            src="img/Vong 02.svg"
+            alt="Vòng trong ngũ"
+          />
+          <img
+            class="mot rotate-cw"
+            src="img/Vong 01.svg"
+            alt="Vòng trong lục"
+          />
+          <img class="nguyendu" src="img/anhnguyendu.png" alt="ảnh Nguyễn Du" />
         </div>
-
-        <div class="achievements">
-          <h3>🏆 Thành tựu & Danh hiệu</h3>
-          <div class="achievement-list">
-            <div class="achievement-item">
-              <span class="achievement-icon">🌟</span>
-              <div>
-                <strong>1965:</strong> Được UNESCO công nhận là Danh nhân văn hóa thế giới
-              </div>
-            </div>
-            <div class="achievement-item">
-              <span class="achievement-icon">📚</span>
-              <div>
-                <strong>Tác phẩm:</strong> Truyện Kiều được dịch ra hơn 20 thứ tiếng
-              </div>
-            </div>
-            <div class="achievement-item">
-              <span class="achievement-icon">🎭</span>
-              <div>
-                <strong>Văn hóa:</strong> Tên ông được đặt cho nhiều trường học, đường phố
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="legacy">
-          <h3>💫 Di sản văn hóa</h3>
-          <p>
-            Nguyễn Du không chỉ là một nhà thơ tài ba mà còn là một nhà tư tưởng sâu sắc.
-            Tác phẩm "Truyện Kiều" của ông đã trở thành biểu tượng của văn học Việt Nam,
-            phản ánh sâu sắc số phận con người trong xã hội phong kiến. Ông được coi là
-            "Đại thi hào dân tộc" và tác phẩm của ông vẫn được yêu thích, học tập đến ngày nay.
+        <div class="anhtruyenkieu">
+          <img
+            src="img/screenshot_1745479404.png"
+            alt=""
+            style="width: 100%; height: auto"
+          /><br />
+          <p style="text-align: center">
+            Cảnh vợ chồng Nguyễn Du trong “Đại thi hào Nguyễn Du”
           </p>
         </div>
       </div>
-    </div>
-  </div>
-  <script type="module" src="all.js"></script><script type="application/javascript">
-(function(w,d,s,o,f,js,fjs){w[o]=w[o]||function(){(w[o].q=w[o].q||[]).push(arguments);};(js=d.createElement(s)),(fjs=d.getElementsByTagName(s)[0]);js.id=o;js.src=f;js.async=1;js.referrerPolicy = "origin";fjs.parentNode.insertBefore(js,fjs);})(window,document,"script","copilot","https://script.copilot.live/v1/copilot.min.js?tkn=cat-bndlngf5");
-copilot("init",{});
-</script>
-</body>
+      <div class="text-container">
+        <div class="biography-section">
+          <h2 class="section-title">🏛️ Tiểu sử Đại thi hào Nguyễn Du</h2>
 
+          <div class="timeline-container">
+            <div class="timeline-item">
+              <div class="timeline-year">1765</div>
+              <div class="timeline-content">
+                <h4>Khai sinh</h4>
+                <p>
+                  Sinh tại làng Tiên Điền, huyện Nghi Xuân, Hà Tĩnh. Tên thật là
+                  <strong>Nguyễn Thành Tổ</strong>, tự <strong>Tố Như</strong>,
+                  hiệu <strong>Thanh Hiên</strong>.
+                </p>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-year">1785</div>
+              <div class="timeline-content">
+                <h4>Đỗ Hương Cống</h4>
+                <p>
+                  Đỗ thi Hương Cống, được cử làm Huyện chính. Bắt đầu con đường
+                  quan lộ.
+                </p>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-year">1802</div>
+              <div class="timeline-content">
+                <h4>Chuyển sang triều Nguyễn</h4>
+                <p>
+                  Sau khi triều Tây Sơn sụp đổ, ông phải phục vụ triều Nguyễn
+                  với tâm trạng "tôi cầu quốc, quốc diệt".
+                </p>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-year">1813-1815</div>
+              <div class="timeline-content">
+                <h4>Sáng tác Truyện Kiều</h4>
+                <p>
+                  Hoàn thành tác phẩm bất hủ
+                  <strong>"Đoạn trường tân thanh"</strong> (Truyện Kiều) - kiệt
+                  tác văn học Việt Nam.
+                </p>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-year">1820</div>
+              <div class="timeline-content">
+                <h4>Qua đời</h4>
+                <p>
+                  Mất tại Huế khi chuẩn bị sang sứ Trung Quốc, hưởng thọ 56
+                  tuổi.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="personal-info">
+            <h3>📖 Thông tin cá nhân</h3>
+            <div class="info-grid">
+              <div class="info-item">
+                <strong>Tên thật:</strong> Nguyễn Thành Tổ
+              </div>
+              <div class="info-item"><strong>Tự:</strong> Tố Như</div>
+              <div class="info-item"><strong>Hiệu:</strong> Thanh Hiên</div>
+              <div class="info-item">
+                <strong>Quê quán:</strong> Tiên Điền, Nghi Xuân, Hà Tĩnh
+              </div>
+              <div class="info-item">
+                <strong>Cha:</strong> Nguyễn Nghiễm (Xuân Nhạc Công)
+              </div>
+              <div class="info-item"><strong>Tôn giáo:</strong> Phật giáo</div>
+            </div>
+          </div>
+
+          <div class="achievements">
+            <h3>🏆 Thành tựu & Danh hiệu</h3>
+            <div class="achievement-list">
+              <div class="achievement-item">
+                <span class="achievement-icon">🌟</span>
+                <div>
+                  <strong>1965:</strong> Được UNESCO công nhận là Danh nhân văn
+                  hóa thế giới
+                </div>
+              </div>
+              <div class="achievement-item">
+                <span class="achievement-icon">📚</span>
+                <div>
+                  <strong>Tác phẩm:</strong> Truyện Kiều được dịch ra hơn 20 thứ
+                  tiếng
+                </div>
+              </div>
+              <div class="achievement-item">
+                <span class="achievement-icon">🎭</span>
+                <div>
+                  <strong>Văn hóa:</strong> Tên ông được đặt cho nhiều trường
+                  học, đường phố
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="legacy">
+            <h3>💫 Di sản văn hóa</h3>
+            <p>
+              Nguyễn Du không chỉ là một nhà thơ tài ba mà còn là một nhà tư
+              tưởng sâu sắc. Tác phẩm "Truyện Kiều" của ông đã trở thành biểu
+              tượng của văn học Việt Nam, phản ánh sâu sắc số phận con người
+              trong xã hội phong kiến. Ông được coi là "Đại thi hào dân tộc" và
+              tác phẩm của ông vẫn được yêu thích, học tập đến ngày nay.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="all.js"></script>
+  </body>
 </html>

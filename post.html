@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="vi">
   <head>
-    <meta charset="UTF-8" /><link rel="icon" href="img/snapedit_1745406959124.jpeg" />
+    <meta charset="UTF-8" />
+    <link rel="icon" href="img/snapedit_1745406959124.jpeg" />
     <title>Chi tiết bài viết</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
@@ -85,7 +86,8 @@
             p.avatar
           }" class="rounded-circle me-2" style="width:40px;height:40px;">
           <div>
-            <strong>${p.author}</strong><br>
+            <strong>${p.username || p.author}</strong>
+<br>
             <small class="text-muted">${
               p.createdAt ? dayjs(p.createdAt.toDate()).fromNow() : ""
             }</small>
@@ -108,8 +110,9 @@
             if (!content) return;
             await addDoc(collection(db, "posts", postId, "comments"), {
               author: currentUser.email,
+              username: rawUser.username || currentUser.email,
               avatar: currentUser.avatar,
-              content,
+              content, // ✅ dùng đúng biến content
               createdAt: serverTimestamp(),
               likes: [],
             });
@@ -136,7 +139,8 @@
               <img src="${
                 c.avatar
               }" class="rounded-circle me-2" style="width:32px;height:32px;">
-              <strong>${c.author}</strong>
+              <strong>${c.username || c.author}</strong>
+
               <small class="text-muted ms-2">${
                 c.createdAt ? dayjs(c.createdAt.toDate()).fromNow() : ""
               }</small>
@@ -171,8 +175,9 @@
           collection(db, "posts", postId, "comments", commentId, "replies"),
           {
             author: currentUser.email,
+            username: rawUser.username || currentUser.email,
             avatar: currentUser.avatar,
-            content: text,
+            content, // ✅ dùng đúng biến content
             createdAt: serverTimestamp(),
             likes: [],
           }
@@ -199,7 +204,7 @@
               <img src="${
                 r.avatar
               }" class="rounded-circle me-2" style="width:28px;height:28px;">
-              <strong>${r.author}</strong>
+              <strong>${r.username || r.author}</strong>
               <small class="text-muted ms-2">${
                 r.createdAt ? dayjs(r.createdAt.toDate()).fromNow() : ""
               }</small>

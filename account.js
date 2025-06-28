@@ -366,12 +366,16 @@ function renderPost(docSnap) {
       </div>
       <p id="content-${postId}">${data.content}</p>
       <div class="d-flex align-items-center gap-2 mt-2">
-        <button class="btn btn-sm ${
-          liked ? "btn-danger" : "btn-outline-danger"
-        }" onclick="toggleLike('${postId}')">
-          ❤️ Thích (${(data.likes || []).length})
-        </button>
-      </div>
+  <button class="btn btn-sm ${
+    liked ? "btn-danger" : "btn-outline-danger"
+  }" onclick="toggleLike('${postId}')">
+    ❤️ Thích (${(data.likes || []).length})
+  </button>
+</div>
+<div class="mt-2">
+  <a class="btn btn-sm btn-link" href="post.html?id=${postId}">🔍 Xem thêm</a>
+</div>
+
     </div>
   `;
   userPostsDiv.appendChild(div);
