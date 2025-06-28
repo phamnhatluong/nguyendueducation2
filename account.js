@@ -145,6 +145,7 @@ if (accountAvatar && avatarInput) {
       }
 
       alert("Ảnh đại diện đã được cập nhật!");
+      location.reload();
     } catch (error) {
       console.error("Upload avatar thất bại:", error);
       alert("Không thể cập nhật ảnh đại diện. Vui lòng thử lại.");
@@ -209,7 +210,16 @@ change_name.addEventListener("click", async function (event) {
     localStorage.setItem("currentUser", JSON.stringify(currentUser));
 
     try {
-      await setDoc(doc(db, "users", currentUser.email), currentUser);
+      await setDoc(
+        doc(db, "users", currentUser.email),
+        {
+          ...currentUser,
+          username: currentUser.username,
+        },
+        { merge: true }
+      );
+
+      await updateAllUsernames();
 
       const postQuery = query(
         collection(db, "posts"),
@@ -247,6 +257,7 @@ change_name.addEventListener("click", async function (event) {
       if (welcomeText) welcomeText.innerText = ` ${currentUser.username}`;
       if (welcomeAccount) welcomeAccount.innerText = ` ${currentUser.username}`;
       alert("Tên đã được cập nhật!");
+      location.reload();
     } catch (err) {
       alert("Lỗi khi lưu tên vào Firestore.");
       console.error(err);
@@ -406,6 +417,55 @@ onSnapshot(userPostQuery, (snapshot) => {
   userPostsDiv.innerHTML = "";
   snapshot.forEach(renderPost);
 });
+async function updateAllUsernames() {
+  const postsSnap = await getDocs(collection(db, "posts"));
+  for (const post of postsSnap.docs) {
+    const postData = post.data();
+
+    // Bài viết của user
+    if (
+      postData.author === currentUser.email &&
+      postData.username !== currentUser.username
+    ) {
+      await updateDoc(post.ref, { username: currentUser.username });
+    }
+
+    // Cập nhật comment
+    const commentsSnap = await getDocs(collection(post.ref, "comments"));
+    for (const comment of commentsSnap.docs) {
+      const cData = comment.data();
+
+      if (
+        cData.author === currentUser.email &&
+        cData.username !== currentUser.username
+      ) {
+        await updateDoc(comment.ref, { username: currentUser.username });
+      }
+
+      const repliesSnap = await getDocs(collection(comment.ref, "replies"));
+      for (const reply of repliesSnap.docs) {
+        const rData = reply.data();
+        if (
+          rData.author === currentUser.email &&
+          rData.username !== currentUser.username
+        ) {
+          await updateDoc(reply.ref, { username: currentUser.username });
+        }
+      }
+    }
+  }
+
+  // Cập nhật chat
+  const chatSnap = await getDocs(
+    query(collection(db, "globalChat"), where("user", "==", currentUser.email))
+  );
+  for (const docSnap of chatSnap.docs) {
+    await updateDoc(docSnap.ref, {
+      username: currentUser.username,
+      avatar: currentUser.avatar,
+    });
+  }
+}
 
 ////////////////
 const chatQuery = query(
